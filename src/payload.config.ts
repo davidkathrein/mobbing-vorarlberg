@@ -4,6 +4,8 @@ import { postgresAdapter } from '@payloadcms/db-postgres'
 import sharp from 'sharp' // sharp-import
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
+import { en } from '@payloadcms/translations/languages/en'
+import { de } from '@payloadcms/translations/languages/de'
 import { fileURLToPath } from 'url'
 
 import { Categories } from './collections/Categories'
@@ -56,6 +58,14 @@ export default buildConfig({
         },
       ],
     },
+  },
+  localization: {
+    defaultLocale: 'de',
+    locales: ['de', 'en'],
+  },
+  i18n: {
+    supportedLanguages: { en, de },
+    fallbackLanguage: 'de',
   },
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
