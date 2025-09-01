@@ -51,17 +51,17 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
               },
             ],
           },
-          {
-            name: 'newTab',
-            type: 'checkbox',
-            admin: {
-              style: {
-                alignSelf: 'flex-end',
-              },
-              width: '50%',
-            },
-            label: 'Open in new tab',
-          },
+          // {
+          //   name: 'newTab',
+          //   type: 'checkbox',
+          //   admin: {
+          //     style: {
+          //       alignSelf: 'flex-end',
+          //     },
+          //     width: '50%',
+          //   },
+          //   label: 'Open in new tab',
+          // },
         ],
       },
     ],

@@ -5,14 +5,14 @@ import type { PayloadAdminBarProps, PayloadMeUser } from '@payloadcms/admin-bar'
 import { cn } from '@/utilities/ui'
 import { useSelectedLayoutSegments } from 'next/navigation'
 import { PayloadAdminBar } from '@payloadcms/admin-bar'
-import React, { useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 import './index.scss'
 
 import { getClientSideURL } from '@/utilities/getURL'
 
-const baseClass = 'admin-bar'
+const baseClass = 'admin-bar fixed top-0 left-0 right-0 z-20'
 
 const collectionLabels = {
   pages: {
@@ -46,12 +46,32 @@ export const AdminBar: React.FC<{
     setShow(Boolean(user?.id))
   }, [])
 
+  const barRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (barRef.current) {
+        const height = barRef.current.clientHeight
+        document.documentElement.style.setProperty('--payload-admin-bar-height', `${height}px`)
+        console.log(barRef.current)
+      }
+    }
+
+    handleResize()
+
+    const observer = new ResizeObserver(handleResize)
+    if (barRef.current) observer.observe(barRef.current)
+
+    return () => observer.disconnect()
+  }, [show])
+
   return (
     <div
       className={cn(baseClass, 'py-2 bg-black text-white', {
         block: show,
         hidden: !show,
       })}
+      ref={barRef}
     >
       <div className="container">
         <PayloadAdminBar

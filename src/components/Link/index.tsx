@@ -32,6 +32,19 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     size: sizeFromProps,
     url,
   } = props
+  const SITE_URL = process.env.NEXT_PUBLIC_SERVER_URL
+
+  function isInternalUrl(url: string) {
+    if (url.startsWith('/')) return true
+    if (!SITE_URL) throw new Error('NEXT_PUBLIC_SERVER_URL is not defined in .env')
+
+    try {
+      const parsed = new URL(url, SITE_URL)
+      return parsed.hostname === new URL(SITE_URL).hostname
+    } catch (e) {
+      return false
+    }
+  }
 
   const href =
     type === 'reference' && typeof reference?.value === 'object' && reference.value.slug
@@ -39,11 +52,12 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
           reference.value.slug
         }`
       : url
-
   if (!href) return null
 
+  const isInternal = isInternalUrl(href)
+
   const size = appearance === 'link' ? 'clear' : sizeFromProps
-  const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
+  const newTabProps = !isInternal ? { rel: 'noopener noreferrer', target: '_blank' } : {}
 
   /* Ensure we don't break any styles set by richText */
   if (appearance === 'inline') {

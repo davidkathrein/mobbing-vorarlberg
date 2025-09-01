@@ -94,6 +94,14 @@
   body > * {
     @apply relative z-[1];
   }
+
+  body:has(> .admin-bar) .navbar {
+    @apply top-[var(--payload-admin-bar-height)] !bg-red-900;
+  }
+
+  .ring-hover {
+    @apply ring-offset-background hover:ring-primary/90 transition-all duration-300 hover:ring-2 hover:ring-offset-2;
+  }
 }
 
 html {

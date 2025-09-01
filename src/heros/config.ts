@@ -28,6 +28,10 @@ export const hero: Field = {
           value: 'highImpact',
         },
         {
+          label: 'Center Big Image',
+          value: 'centerBigImage',
+        },
+        {
           label: 'Medium Impact',
           value: 'mediumImpact',
         },

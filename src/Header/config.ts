@@ -25,6 +25,22 @@ export const Header: GlobalConfig = {
         },
       },
     },
+    {
+      name: 'navButtons',
+      type: 'array',
+      fields: [
+        link({
+          appearances: ['default', 'outline'],
+        }),
+      ],
+      maxRows: 2,
+      admin: {
+        initCollapsed: true,
+        components: {
+          RowLabel: '@/Header/RowLabel#RowLabel',
+        },
+      },
+    },
   ],
   hooks: {
     afterChange: [revalidateHeader],

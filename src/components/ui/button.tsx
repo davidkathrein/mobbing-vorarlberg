@@ -3,9 +3,6 @@ import { Slot } from '@radix-ui/react-slot'
 import { type VariantProps, cva } from 'class-variance-authority'
 import * as React from 'react'
 
-export const ringHoverClass =
-  'ring-offset-background hover:ring-primary/90 transition-all duration-300 hover:ring-2 hover:ring-offset-2'
-
 const buttonVariants = cva(
   'inline-flex items-center justify-center whitespace-nowrap rounded text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
   {
@@ -22,17 +19,14 @@ const buttonVariants = cva(
         sm: 'h-9 rounded px-3',
       },
       variant: {
-        default: 'bg-primary text-primary-foreground hover:bg-primary/90' + ringHoverClass,
+        default: 'bg-primary text-primary-foreground hover:bg-primary/90 ring-hover',
         destructive:
-          'bg-destructive text-destructive-foreground hover:bg-destructive/90' + ringHoverClass,
-        ghost: 'hover:bg-card hover:text-accent-foreground' + ringHoverClass,
-        link:
-          'text-primary items-start justify-start underline-offset-4 hover:underline' +
-          ringHoverClass,
+          'bg-destructive text-destructive-foreground hover:bg-destructive/90 ring-hover',
+        ghost: 'hover:bg-card hover:text-accent-foreground ring-hover',
+        link: 'text-primary items-start justify-start underline-offset-4 hover:underline',
         outline:
-          'border border-border bg-background hover:bg-card hover:text-accent-foreground' +
-          ringHoverClass,
-        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/70' + ringHoverClass,
+          'border border-border bg-background hover:bg-card hover:text-accent-foreground ring-hover',
+        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/70 ring-hover',
       },
     },
   },

@@ -149,7 +149,7 @@ export interface Page {
   id: number;
   title: string;
   hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
+    type: 'none' | 'highImpact' | 'centerBigImage' | 'mediumImpact' | 'lowImpact';
     richText?: {
       root: {
         type: string;
@@ -169,7 +169,6 @@ export interface Page {
       | {
           link: {
             type?: ('reference' | 'custom') | null;
-            newTab?: boolean | null;
             reference?:
               | ({
                   relationTo: 'pages';
@@ -416,7 +415,6 @@ export interface CallToActionBlock {
     | {
         link: {
           type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -466,7 +464,6 @@ export interface ContentBlock {
         enableLink?: boolean | null;
         link?: {
           type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -1007,7 +1004,6 @@ export interface PagesSelect<T extends boolean = true> {
                 | T
                 | {
                     type?: T;
-                    newTab?: T;
                     reference?: T;
                     url?: T;
                     label?: T;
@@ -1053,7 +1049,6 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
               reference?: T;
               url?: T;
               label?: T;
@@ -1079,7 +1074,6 @@ export interface ContentBlockSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
               reference?: T;
               url?: T;
               label?: T;
@@ -1556,7 +1550,6 @@ export interface Header {
     | {
         link: {
           type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -1568,6 +1561,29 @@ export interface Header {
               } | null);
           url?: string | null;
           label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  navButtons?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: number | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
         };
         id?: string | null;
       }[]
@@ -1585,7 +1601,6 @@ export interface Footer {
     | {
         link: {
           type?: ('reference' | 'custom') | null;
-          newTab?: boolean | null;
           reference?:
             | ({
                 relationTo: 'pages';
@@ -1616,10 +1631,23 @@ export interface HeaderSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
               reference?: T;
               url?: T;
               label?: T;
+            };
+        id?: T;
+      };
+  navButtons?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
             };
         id?: T;
       };
@@ -1639,7 +1667,6 @@ export interface FooterSelect<T extends boolean = true> {
           | T
           | {
               type?: T;
-              newTab?: T;
               reference?: T;
               url?: T;
               label?: T;
