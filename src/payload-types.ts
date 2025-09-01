@@ -150,6 +150,32 @@ export interface Page {
   title: string;
   hero: {
     type: 'none' | 'highImpact' | 'centerBigImage' | 'mediumImpact' | 'lowImpact';
+    banner?: {
+      type?: string | null;
+      links?:
+        | {
+            link: {
+              type?: ('reference' | 'custom') | null;
+              reference?:
+                | ({
+                    relationTo: 'pages';
+                    value: number | Page;
+                  } | null)
+                | ({
+                    relationTo: 'posts';
+                    value: number | Post;
+                  } | null);
+              url?: string | null;
+              label: string;
+              /**
+               * Choose how the link should be rendered.
+               */
+              appearance?: 'default' | null;
+            };
+            id?: string | null;
+          }[]
+        | null;
+    };
     richText?: {
       root: {
         type: string;
@@ -996,6 +1022,25 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         type?: T;
+        banner?:
+          | T
+          | {
+              type?: T;
+              links?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                          appearance?: T;
+                        };
+                    id?: T;
+                  };
+            };
         richText?: T;
         links?:
           | T

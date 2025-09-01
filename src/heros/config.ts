@@ -43,6 +43,28 @@ export const hero: Field = {
       required: true,
     },
     {
+      name: 'banner',
+      type: 'group',
+      required: false,
+      fields: [
+        {
+          name: 'type',
+          type: 'text',
+          required: false,
+          defaultValue: 'Neu',
+        },
+        linkGroup({
+          appearances: ['default'],
+          overrides: {
+            maxRows: 1,
+          },
+        }),
+      ],
+      admin: {
+        condition: (_, { type } = {}) => ['centerBigImage'].includes(type),
+      },
+    },
+    {
       name: 'richText',
       type: 'richText',
       editor: lexicalEditor({

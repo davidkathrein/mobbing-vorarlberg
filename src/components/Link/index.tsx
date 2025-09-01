@@ -35,6 +35,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   const SITE_URL = process.env.NEXT_PUBLIC_SERVER_URL
 
   function isInternalUrl(url: string) {
+    if (newTab) return false
     if (url.startsWith('/')) return true
     if (!SITE_URL) throw new Error('NEXT_PUBLIC_SERVER_URL is not defined in .env')
 
