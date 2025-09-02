@@ -7,6 +7,8 @@ import { CallToActionBlock } from '@/blocks/default/CallToAction/Component'
 import { ContentBlock } from '@/blocks/default/Content/Component'
 import { FormBlock } from '@/blocks/default/Form/Component'
 import { MediaBlock } from '@/blocks/default/MediaBlock/Component'
+import { LogoCloud } from '@/blocks/LogoCloudOneLine/Component'
+import { TeamList } from '@/blocks/Team/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -14,6 +16,8 @@ const blockComponents = {
   cta: CallToActionBlock,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
+  logos: LogoCloud,
+  teamList: TeamList,
 }
 
 export const RenderBlocks: React.FC<{

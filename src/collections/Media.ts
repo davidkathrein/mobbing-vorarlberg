@@ -26,6 +26,9 @@ export const Media: CollectionConfig = {
     {
       name: 'alt',
       type: 'text',
+      admin: {
+        description: 'Nur leerlassen, wenn das Bild ausschließlich optische Bedeutung hat.',
+      },
       //required: true,
     },
     {

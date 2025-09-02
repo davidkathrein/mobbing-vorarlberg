@@ -216,7 +216,7 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | LogoCloud | TeamList)[];
   meta?: {
     title?: string | null;
     /**
@@ -285,6 +285,9 @@ export interface Post {
  */
 export interface Media {
   id: number;
+  /**
+   * Nur leerlassen, wenn das Bild ausschließlich optische Bedeutung hat.
+   */
   alt?: string | null;
   caption?: {
     root: {
@@ -399,6 +402,40 @@ export interface Category {
 export interface User {
   id: number;
   name?: string | null;
+  /**
+   * Das Profilbild des Benutzers.
+   */
+  profilePicture?: (number | null) | Media;
+  jobDescription?: string | null;
+  biography?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  link?: {
+    url?: string | null;
+    label?: string | null;
+  };
+  roles?: {
+    /**
+     * Kann alle Seiten bearbeiten. Voller Zugriff auf alle Benutzeroberflächen!
+     */
+    admin?: boolean | null;
+    /**
+     * Wird auf Team-Seite angezeigt. Kann keine Seiten bearbeiten.
+     */
+    team?: boolean | null;
+  };
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -759,6 +796,39 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LogoCloud".
+ */
+export interface LogoCloud {
+  text: string;
+  logos?:
+    | {
+        logo?: (number | null) | Media;
+        /**
+         * Text logos will be used if no image is selected
+         */
+        textLogo?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'logos';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TeamList".
+ */
+export interface TeamList {
+  type: 'highImpact' | 'lowImpact';
+  caption?: string | null;
+  heading: string;
+  paragraph?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'teamList';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1066,6 +1136,8 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        logos?: T | LogoCloudSelect<T>;
+        teamList?: T | TeamListSelect<T>;
       };
   meta?:
     | T
@@ -1160,6 +1232,34 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LogoCloud_select".
+ */
+export interface LogoCloudSelect<T extends boolean = true> {
+  text?: T;
+  logos?:
+    | T
+    | {
+        logo?: T;
+        textLogo?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TeamList_select".
+ */
+export interface TeamListSelect<T extends boolean = true> {
+  type?: T;
+  caption?: T;
+  heading?: T;
+  paragraph?: T;
   id?: T;
   blockName?: T;
 }
@@ -1313,6 +1413,21 @@ export interface CategoriesSelect<T extends boolean = true> {
  */
 export interface UsersSelect<T extends boolean = true> {
   name?: T;
+  profilePicture?: T;
+  jobDescription?: T;
+  biography?: T;
+  link?:
+    | T
+    | {
+        url?: T;
+        label?: T;
+      };
+  roles?:
+    | T
+    | {
+        admin?: T;
+        team?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   email?: T;

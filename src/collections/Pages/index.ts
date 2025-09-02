@@ -7,6 +7,9 @@ import { CallToAction } from '../../blocks/default/CallToAction/config'
 import { Content } from '../../blocks/default/Content/config'
 import { FormBlock } from '../../blocks/default/Form/config'
 import { MediaBlock } from '../../blocks/default/MediaBlock/config'
+import { LogoCloud } from '@/blocks/LogoCloudOneLine/config'
+import { TeamList } from '@/blocks/Team/config'
+
 import { hero } from '@/heros/config'
 import { slugField } from '@/fields/slug'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -75,7 +78,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
+              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, LogoCloud, TeamList],
               required: true,
               admin: {
                 initCollapsed: true,

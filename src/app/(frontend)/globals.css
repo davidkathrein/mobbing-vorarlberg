@@ -96,7 +96,7 @@
   }
 
   body:has(> .admin-bar) .navbar {
-    @apply top-[var(--payload-admin-bar-height)] !bg-red-900;
+    @apply top-[var(--payload-admin-bar-height)];
   }
 
   .ring-hover {
