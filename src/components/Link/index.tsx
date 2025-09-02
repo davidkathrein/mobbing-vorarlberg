@@ -53,7 +53,10 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
           reference.value.slug
         }`
       : url
-  if (!href) return null
+  if (!href) {
+    console.log('CMSLink: no URL found.')
+    return null
+  }
 
   const isInternal = isInternalUrl(href)
 

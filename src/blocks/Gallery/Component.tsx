@@ -11,7 +11,7 @@ import HeaderHighImpact from '@/components/Headers/HighImpact'
 import MemberWDescription from './HighImpact/index'
 import MemberWODescription from './LowImpact/index'
 
-type Props = TeamListProps & {
+type Props = GalleryProps & {
   // potentially add filters here later (eg. for Angebotsseite)
 }
 
