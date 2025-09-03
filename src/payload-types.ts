@@ -150,31 +150,26 @@ export interface Page {
   title: string;
   hero: {
     type: 'none' | 'highImpact' | 'centerBigImage' | 'mediumImpact' | 'lowImpact';
-    banner?: {
-      type?: string | null;
-      links?:
-        | {
-            link: {
-              type?: ('reference' | 'custom') | null;
-              reference?:
-                | ({
-                    relationTo: 'pages';
-                    value: number | Page;
-                  } | null)
-                | ({
-                    relationTo: 'posts';
-                    value: number | Post;
-                  } | null);
-              url?: string | null;
-              label: string;
-              /**
-               * Choose how the link should be rendered.
-               */
-              appearance?: 'default' | null;
-            };
-            id?: string | null;
-          }[]
-        | null;
+    announcement?: {
+      tag?: string | null;
+      link: {
+        type?: ('reference' | 'custom') | null;
+        reference?:
+          | ({
+              relationTo: 'pages';
+              value: number | Page;
+            } | null)
+          | ({
+              relationTo: 'posts';
+              value: number | Post;
+            } | null);
+        url?: string | null;
+        label: string;
+        /**
+         * Choose how the link should be rendered.
+         */
+        appearance?: 'default' | null;
+      };
     };
     richText?: {
       root: {
@@ -1092,23 +1087,18 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         type?: T;
-        banner?:
+        announcement?:
           | T
           | {
-              type?: T;
-              links?:
+              tag?: T;
+              link?:
                 | T
                 | {
-                    link?:
-                      | T
-                      | {
-                          type?: T;
-                          reference?: T;
-                          url?: T;
-                          label?: T;
-                          appearance?: T;
-                        };
-                    id?: T;
+                    type?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    appearance?: T;
                   };
             };
         richText?: T;

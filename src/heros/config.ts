@@ -8,6 +8,7 @@ import {
 } from '@payloadcms/richtext-lexical'
 
 import { linkGroup } from '@/fields/linkGroup'
+import { link } from '@/fields/link'
 
 export const hero: Field = {
   name: 'hero',
@@ -43,21 +44,18 @@ export const hero: Field = {
       required: true,
     },
     {
-      name: 'banner',
+      name: 'announcement',
       type: 'group',
       required: false,
       fields: [
         {
-          name: 'type',
+          name: 'tag',
           type: 'text',
           required: false,
           defaultValue: 'Neu',
         },
-        linkGroup({
+        link({
           appearances: ['default'],
-          overrides: {
-            maxRows: 1,
-          },
         }),
       ],
       admin: {

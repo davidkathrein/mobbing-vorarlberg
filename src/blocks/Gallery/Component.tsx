@@ -4,7 +4,7 @@ import { getPayload } from 'payload'
 import Image from 'next/image'
 import configPromise from '@payload-config'
 
-import { TeamList as TeamListProps } from '@/payload-types'
+import { Gallery as GalleryProps } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 import HeaderLowImpact from '@/components/Headers/LowImpact'
 import HeaderHighImpact from '@/components/Headers/HighImpact'
@@ -35,7 +35,7 @@ const renderTeamList = async (props: Props) => {
 
   return (
     <section>
-      <div className={cn('mx-auto max-w-5xl px-6', props.caption && 'border-t')}>
+      <div className={cn('container', props.caption && 'border-t')}>
         {props.caption && (
           <span className="text-caption -ml-6 -mt-3.5 block w-max bg-gray-50 px-6 dark:bg-gray-950">
             {props.caption}

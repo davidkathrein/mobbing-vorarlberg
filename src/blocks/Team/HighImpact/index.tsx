@@ -23,8 +23,7 @@ export default function DisclosureCard({ member }: Props) {
 
   const isOpen = isHovered || isLockedOpen
 
-  const currentTheme = document.documentElement.getAttribute('data-theme') // 'light' or 'dark'
-  const invertedTheme = currentTheme === 'dark' ? 'light' : 'dark'
+  const theme = 'dark'
 
   const imageVariants = {
     collapsed: { scale: 1, filter: 'blur(0px)' },
@@ -48,11 +47,10 @@ export default function DisclosureCard({ member }: Props) {
 
   return (
     <div
-      className="relative h-[350px] w-[290px] overflow-hidden rounded-xl"
+      className="relative overflow-hidden rounded-xl"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      style={{ cursor: 'pointer' }}
-      data-theme={invertedTheme}
+      data-theme={theme}
     >
       {media?.url && (
         <MotionImage

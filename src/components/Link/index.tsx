@@ -47,7 +47,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     }
   }
 
-  const href =
+  let href =
     type === 'reference' && typeof reference?.value === 'object' && reference.value.slug
       ? `${reference?.relationTo !== 'pages' ? `/${reference?.relationTo}` : ''}/${
           reference.value.slug
@@ -56,6 +56,10 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   if (!href) {
     console.log('CMSLink: no URL found.')
     return null
+  }
+
+  if (href === '/home' || href === '/homepage' || href === '/index') {
+    href = '/'
   }
 
   const isInternal = isInternalUrl(href)

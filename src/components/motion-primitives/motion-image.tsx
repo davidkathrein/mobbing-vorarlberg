@@ -3,7 +3,7 @@ import Image, { ImageProps } from 'next/image'
 
 type MotionImageProps = ImageProps & MotionProps
 
-const MotionImage = motion<ImageProps>(Image)
+const MotionImage = motion.create<ImageProps>(Image)
 
 export default function AnimatedImage(props: MotionImageProps) {
   return <MotionImage {...props} />

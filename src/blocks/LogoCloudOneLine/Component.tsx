@@ -13,7 +13,7 @@ type Props = LogoCloudProps & {
 export const LogoCloud = ({ speedOnHover = 20, speed = 40, gap = 112, text, logos }: Props) => {
   return (
     <section className="overflow-hidden py-16">
-      <div className="group relative m-auto max-w-7xl px-6">
+      <div className="group relative container">
         <div className="flex flex-col items-center md:flex-row">
           <div className="md:max-w-44 md:border-r md:pr-6">
             <p className="text-end text-sm">{text}</p>

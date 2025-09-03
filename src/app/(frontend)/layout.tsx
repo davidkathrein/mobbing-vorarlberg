@@ -34,13 +34,13 @@ export default async function RootLayout({
   const locale = params?.locale || process.env.DEFAULT_LOCALE || 'de'
 
   return (
-    <html className={cn(robotoSans.className)} lang={locale} suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
       </head>
-      <body>
+      <body className={cn(robotoSans.className, 'text-foreground')}>
         {/* backgrounds from  https://patterncraft.fun */}
         {/* Stellar Mist */}
         <div

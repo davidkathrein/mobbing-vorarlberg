@@ -34,8 +34,8 @@ const renderTeamList = async (props: Props) => {
     })
 
   return (
-    <section>
-      <div className={cn('mx-auto max-w-5xl px-6', props.caption && 'border-t')}>
+    <section className="container">
+      <div className={cn(props.caption && 'border-t')}>
         {props.caption && (
           <span className="text-caption -ml-6 -mt-3.5 block w-max bg-gray-50 px-6 dark:bg-gray-950">
             {props.caption}
@@ -45,7 +45,7 @@ const renderTeamList = async (props: Props) => {
           <HeaderHighImpact heading={props.heading} paragraph={props.paragraph} />
         )}
         {props.type === 'lowImpact' && <HeaderLowImpact heading={props.heading} />}
-        <div className={cn(props.type === 'highImpact' ? 'mt-12 md:mt-24' : 'mt-6')}>
+        <div className={cn(props.type === 'highImpact' ? 'mt-6 md:mt-12' : 'mt-6')}>
           <div className="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
             {members.map((member, index) => {
               return props.type === 'highImpact' ? (
