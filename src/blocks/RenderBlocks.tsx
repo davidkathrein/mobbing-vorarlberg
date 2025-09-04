@@ -9,6 +9,7 @@ import { FormBlock } from '@/blocks/default/Form/Component'
 import { MediaBlock } from '@/blocks/default/MediaBlock/Component'
 import { LogoCloud } from '@/blocks/LogoCloudOneLine/Component'
 import { TeamList } from '@/blocks/Team/Component'
+import { FaqThree } from '@/blocks/Faq/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -18,6 +19,7 @@ const blockComponents = {
   mediaBlock: MediaBlock,
   logos: LogoCloud,
   teamList: TeamList,
+  faq: FaqThree,
 }
 
 export const RenderBlocks: React.FC<{

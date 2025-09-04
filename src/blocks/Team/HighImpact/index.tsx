@@ -67,7 +67,7 @@ export default function DisclosureCard({ member }: Props) {
       <Disclosure
         onOpenChange={() => setIsLockedOpen((prev) => !prev)}
         open={isOpen}
-        className="absolute bottom-0 left-0 right-0 rounded-xl bg-background px-4 pt-2"
+        className="absolute bottom-0 left-0 right-0 bg-background px-4 pt-2"
         variants={contentVariants}
         transition={transition}
       >

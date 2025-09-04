@@ -1,7 +1,5 @@
 import { FC, Suspense } from 'react'
-import Link from 'next/link'
 import { getPayload } from 'payload'
-import Image from 'next/image'
 import configPromise from '@payload-config'
 
 import { TeamList as TeamListProps } from '@/payload-types'

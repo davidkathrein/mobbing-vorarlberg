@@ -34,6 +34,17 @@ export const CallToAction: Block = {
         maxRows: 2,
       },
     }),
+    {
+      name: 'variant',
+      type: 'select',
+      label: 'Variant',
+      options: [
+        { label: 'Wide', value: 'wide' },
+        { label: 'Center and High', value: 'high' },
+      ],
+      defaultValue: 'wide',
+      required: true,
+    },
   ],
   labels: {
     plural: 'Calls to Action',

@@ -9,6 +9,7 @@ import { FormBlock } from '../../blocks/default/Form/config'
 import { MediaBlock } from '../../blocks/default/MediaBlock/config'
 import { LogoCloud } from '@/blocks/LogoCloudOneLine/config'
 import { TeamList } from '@/blocks/Team/config'
+import { Faq } from '@/blocks/Faq/config'
 
 import { hero } from '@/heros/config'
 import { slugField } from '@/fields/slug'
@@ -78,7 +79,16 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, LogoCloud, TeamList],
+              blocks: [
+                CallToAction,
+                Content,
+                MediaBlock,
+                Archive,
+                FormBlock,
+                LogoCloud,
+                TeamList,
+                Faq,
+              ],
               required: true,
               admin: {
                 initCollapsed: true,

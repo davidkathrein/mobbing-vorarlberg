@@ -82,6 +82,8 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
       name: 'url',
       type: 'text',
       admin: {
+        description:
+          "Email addresses are added in this format: 'mailto:example@google.com'. This format works on all links.",
         condition: (_, siblingData) => siblingData?.type === 'custom',
       },
       label: 'Custom URL',

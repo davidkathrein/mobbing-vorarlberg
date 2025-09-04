@@ -8,7 +8,7 @@ const customTypography = {
         '--tw-prose-body': 'var(--text)',
         '--tw-prose-headings': 'var(--text)',
         h1: {
-          fontWeight: 'normal',
+          fontWeight: '600',
           marginBottom: '0.25em',
         },
       },
@@ -19,6 +19,7 @@ const customTypography = {
       {
         h1: {
           fontSize: '2.5rem',
+          fontWeight: 600,
         },
         h2: {
           fontSize: '1.25rem',
@@ -49,7 +50,7 @@ const config = {
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
   ],
-  darkMode: ['selector', '[data-theme="dark"]'],
+  darkMode: ['selector', '[data-theme="dark"]', 'class'],
   plugins: [tailwindcssAnimate, typography],
   prefix: '',
   safelist: [
@@ -74,15 +75,15 @@ const config = {
         DEFAULT: '1rem',
         lg: '2rem',
         md: '2rem',
-        sm: '1rem',
+        sm: '2rem',
         xl: '2rem',
       },
       screens: {
-        '2xl': '86rem',
-        lg: '64rem',
-        md: '48rem',
-        sm: '40rem',
-        xl: '80rem',
+        '2xl': '90rem',
+        // lg: '64rem',
+        // md: '48rem',
+        // sm: '40rem',
+        // xl: '80rem',
       },
     },
     extend: {
@@ -91,9 +92,11 @@ const config = {
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
       borderRadius: {
+        '2xl': 'calc(var(--radius) + 0.5em)',
+        xl: 'calc(var(--radius) + 0.25em)',
         lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)',
+        md: 'calc(var(--radius) - 0.125em)',
+        sm: 'calc(var(--radius) - 0.25em)',
       },
       colors: {
         accent: {
@@ -139,12 +142,20 @@ const config = {
       },
       keyframes: {
         'accordion-down': {
-          from: { height: '0' },
-          to: { height: 'var(--radix-accordion-content-height)' },
+          from: {
+            height: '0',
+          },
+          to: {
+            height: 'var(--radix-accordion-content-height)',
+          },
         },
         'accordion-up': {
-          from: { height: 'var(--radix-accordion-content-height)' },
-          to: { height: '0' },
+          from: {
+            height: 'var(--radix-accordion-content-height)',
+          },
+          to: {
+            height: '0',
+          },
         },
       },
       typography: customTypography,

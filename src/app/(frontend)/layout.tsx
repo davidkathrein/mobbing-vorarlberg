@@ -56,18 +56,18 @@ export default async function RootLayout({
      `,
           }}
         />
-        {/* Cool Blue Glow Right */}
+        {/* Glow Right with auto accent-color */}
         <div
           className="fixed inset-0 h-screen z-[-1] dark:hidden"
           style={{
-            background: '#ffffff',
+            background: 'hsl(var(--background))',
             backgroundImage: `
-     radial-gradient(
-     circle at top right,
-     rgba(70, 130, 180, 0.5),
-     transparent 70%
-     )
-     `,
+        radial-gradient(
+          circle at top right,
+          color-mix(in hsl, hsl(var(--accent)) 70%, transparent),
+          transparent 70%
+        )
+      `,
             filter: 'blur(80px)',
             backgroundRepeat: 'no-repeat',
           }}

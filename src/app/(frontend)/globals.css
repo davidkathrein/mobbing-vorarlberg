@@ -23,7 +23,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 16 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -32,8 +32,8 @@
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 43 43% 85%;
+    --accent-foreground: 43 47.4% 11.2%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
@@ -42,7 +42,7 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
 
-    --radius: 0.1rem;
+    --radius: 0.5rem;
 
     --success: 196 52% 74%;
     --warning: 34 89% 85%;
@@ -112,8 +112,6 @@ html[data-theme='dark'],
 html[data-theme='light'] {
   opacity: initial;
 }
-
-
 
 @layer base {
   * {

@@ -36,6 +36,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
 
   function isInternalUrl(url: string) {
     if (newTab) return false
+    if (url.startsWith('mailto:')) return true
     if (url.startsWith('/')) return true
     if (!SITE_URL) throw new Error('NEXT_PUBLIC_SERVER_URL is not defined in .env')
 
@@ -54,7 +55,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
         }`
       : url
   if (!href) {
-    console.log('CMSLink: no URL found.')
+    console.error('CMSLink: no URL provided.')
     return null
   }
 
