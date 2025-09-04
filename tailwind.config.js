@@ -1,5 +1,45 @@
-import tailwindcssAnimate from 'tailwindcss-animate'
-import typography from '@tailwindcss/typography'
+const tailwindcssAnimate = require('tailwindcss-animate')
+const typography = require('@tailwindcss/typography')
+
+const customTypography = {
+  DEFAULT: {
+    css: [
+      {
+        '--tw-prose-body': 'var(--text)',
+        '--tw-prose-headings': 'var(--text)',
+        h1: {
+          fontWeight: 'normal',
+          marginBottom: '0.25em',
+        },
+      },
+    ],
+  },
+  base: {
+    css: [
+      {
+        h1: {
+          fontSize: '2.5rem',
+        },
+        h2: {
+          fontSize: '1.25rem',
+          fontWeight: 600,
+        },
+      },
+    ],
+  },
+  md: {
+    css: [
+      {
+        h1: {
+          fontSize: '3.5rem',
+        },
+        h2: {
+          fontSize: '1.5rem',
+        },
+      },
+    ],
+  },
+}
 
 /** @type {import('tailwindcss').Config} */
 const config = {
@@ -107,47 +147,9 @@ const config = {
           to: { height: '0' },
         },
       },
-      typography: () => ({
-        DEFAULT: {
-          css: [
-            {
-              '--tw-prose-body': 'var(--text)',
-              '--tw-prose-headings': 'var(--text)',
-              h1: {
-                fontWeight: 'normal',
-                marginBottom: '0.25em',
-              },
-            },
-          ],
-        },
-        base: {
-          css: [
-            {
-              h1: {
-                fontSize: '2.5rem',
-              },
-              h2: {
-                fontSize: '1.25rem',
-                fontWeight: 600,
-              },
-            },
-          ],
-        },
-        md: {
-          css: [
-            {
-              h1: {
-                fontSize: '3.5rem',
-              },
-              h2: {
-                fontSize: '1.5rem',
-              },
-            },
-          ],
-        },
-      }),
+      typography: customTypography,
     },
   },
 }
 
-export default config
+module.exports = config
