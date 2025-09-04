@@ -1,18 +1,34 @@
-'use client'
-import React, { useEffect } from 'react'
-import { useHeaderTheme } from '@/providers/HeaderTheme'
-
-import type { Page } from '@/payload-types'
-
-import { CMSLink } from '@/components/Link'
-import { Media } from '@/components/Media'
-import RichText from '@/components/RichText'
-
+import React from 'react'
 import Link from 'next/link'
-import { ArrowRight, Menu, Rocket, X } from 'lucide-react'
+import { ArrowRight, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
-import BannerLabel from '@/components/BannerLabel'
+import { TextEffect } from '@/components/motion-primitives/text-effect'
+import { ProgressiveBlur } from '@/components/motion-primitives/progressive-blur'
+import { AnimatedGroup } from '@/components/motion-primitives/animated-group'
+import { Page } from '@/payload-types'
+import { CMSLink } from '@/components/Link'
+import RichText from '@/components/RichText'
+
+const transitionVariants = {
+  item: {
+    hidden: {
+      opacity: 0,
+      filter: 'blur(12px)',
+      y: 12,
+    },
+    visible: {
+      opacity: 1,
+      filter: 'blur(0px)',
+      y: 0,
+      transition: {
+        type: 'spring' as const,
+        bounce: 0.3,
+        duration: 1.5,
+      },
+    },
+  },
+}
 
 export const CenterBigImageHero: React.FC<Page['hero']> = ({
   links,
@@ -21,50 +37,124 @@ export const CenterBigImageHero: React.FC<Page['hero']> = ({
   announcement,
 }) => {
   return (
-    <div className="relative pt-24">
-      <div className="container">
-        <div className="max-w-3xl text-center sm:mx-auto lg:mr-auto lg:mt-0 lg:w-4/5">
-          {announcement && (
-            <BannerLabel
-              type={announcement?.tag ?? undefined}
-              text={Array.isArray(announcement?.link) ? announcement.link.label : undefined}
-              hasIcon={true}
-              url={Array.isArray(announcement?.link) ? announcement.link.url : undefined}
-            />
-          )}
-          {richText && (
-            <RichText className="mt-6 mb-8" data={richText} enableGutter={false} enableProse />
-          )}
-          {Array.isArray(links) && links.length > 0 && (
-            <ul className="flex md:justify-center gap-4">
-              {links.map(({ link }, i) => {
-                return (
-                  <li key={i}>
-                    <CMSLink {...link} />
-                  </li>
-                )
-              })}
-            </ul>
-          )}
+    <>
+      <div className="overflow-hidden">
+        <div
+          aria-hidden
+          className="absolute inset-0 isolate hidden opacity-65 contain-strict lg:block"
+        >
+          <div className="w-140 h-320 -translate-y-87.5 absolute left-0 top-0 -rotate-45 rounded-full bg-[radial-gradient(68.54%_68.72%_at_55.02%_31.46%,hsla(0,0%,85%,.08)_0,hsla(0,0%,55%,.02)_50%,hsla(0,0%,45%,0)_80%)]" />
+          <div className="h-320 absolute left-0 top-0 w-60 -rotate-45 rounded-full bg-[radial-gradient(50%_50%_at_50%_50%,hsla(0,0%,85%,.06)_0,hsla(0,0%,45%,.02)_80%,transparent_100%)] [translate:5%_-50%]" />
+          <div className="h-320 -translate-y-87.5 absolute left-0 top-0 w-60 -rotate-45 bg-[radial-gradient(50%_50%_at_50%_50%,hsla(0,0%,85%,.04)_0,hsla(0,0%,45%,.02)_80%,transparent_100%)]" />
         </div>
-      </div>
-      {media && typeof media === 'object' && media.url && (
-        <div className="relative mt-16">
-          <div
-            aria-hidden
-            className="bg-linear-to-b to-background absolute inset-0 z-10 from-transparent from-35%"
-          />
-          <div className="relative mx-auto max-w-6xl overflow-hidden px-4">
-            <Image
-              className="z-2 border-border/25 relative rounded-2xl border"
-              src={media.url}
-              alt={media.alt ?? ''}
-              width={2796}
-              height={2008}
-            />
+        <section>
+          <div className="relative pt-20 md:pt-32">
+            <div className="absolute inset-0 -z-10 size-full [background:radial-gradient(125%_125%_at_50%_100%,transparent_0%,var(--color-background)_75%)]"></div>
+            <div className="mx-auto max-w-7xl px-6">
+              <div className="text-center sm:mx-auto lg:mr-auto lg:mt-0">
+                {announcement && (
+                  <AnimatedGroup variants={transitionVariants}>
+                    <CMSLink
+                      url={announcement?.link.url ?? '/home'}
+                      reference={announcement?.link?.reference}
+                      className="hover:bg-background dark:hover:border-t-border bg-muted group mx-auto flex w-fit items-center gap-4 rounded-full border p-1 pl-4 shadow-md shadow-zinc-950/5 transition-colors duration-300 dark:border-t-white/5 dark:shadow-zinc-950"
+                    >
+                      <span className="text-foreground text-sm">{announcement?.link.label}</span>
+                      <span className="block h-4 w-0.5 border-l bg-background"></span>
+
+                      <div className="bg-background group-hover:bg-muted size-6 overflow-hidden rounded-full duration-500">
+                        <div className="flex w-12 -translate-x-1/2 duration-500 ease-in-out group-hover:translate-x-0">
+                          <span className="flex size-6">
+                            <ArrowRight className="m-auto size-3" />
+                          </span>
+                          <span className="flex size-6">
+                            <ArrowRight className="m-auto size-3" />
+                          </span>
+                        </div>
+                      </div>
+                    </CMSLink>
+                  </AnimatedGroup>
+                )}
+
+                {richText && (
+                  <AnimatedGroup
+                    variants={{
+                      container: {
+                        visible: {
+                          transition: {
+                            staggerChildren: 0.25,
+                            delayChildren: 0.1,
+                          },
+                        },
+                      },
+                      ...transitionVariants,
+                    }}
+                    className="mt-12"
+                  >
+                    <RichText data={richText} className="prose prose-h1:text-6xl" />
+                  </AnimatedGroup>
+                )}
+                <AnimatedGroup
+                  variants={{
+                    container: {
+                      visible: {
+                        transition: {
+                          staggerChildren: 0.05,
+                          delayChildren: 0.4,
+                        },
+                      },
+                    },
+                    ...transitionVariants,
+                  }}
+                  className="mt-12 flex flex-col items-center justify-center gap-2 md:flex-row"
+                >
+                  {Array.isArray(links) && links.length > 0 && (
+                    <ul className="flex md:justify-center gap-4">
+                      {links.map(({ link }, i) => {
+                        return (
+                          <li key={i}>
+                            <CMSLink {...link} size={'lg'} />
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  )}
+                </AnimatedGroup>
+              </div>
+            </div>
+            {media && typeof media === 'object' && media.url && (
+              <AnimatedGroup
+                variants={{
+                  container: {
+                    visible: {
+                      transition: {
+                        staggerChildren: 0.05,
+                        delayChildren: 0.4,
+                      },
+                    },
+                  },
+                  ...transitionVariants,
+                }}
+                className="container"
+              >
+                <div className="relative -mr-56 mt-8 overflow-hidden px-2 sm:mr-0 sm:mt-12 md:mt-20">
+                  <div className="inset-shadow-2xs ring-background dark:inset-shadow-white/20 bg-background relative overflow-hidden rounded-2xl border p-4 shadow-lg shadow-zinc-950/15 ring-1">
+                    <Image
+                      className="bg-background aspect-15/8 relative rounded-2xl"
+                      src={media.url}
+                      alt={media.alt ?? ''}
+                      width="2700"
+                      height="1440"
+                    />
+                  </div>
+                </div>
+              </AnimatedGroup>
+            )}
           </div>
-        </div>
-      )}
-    </div>
+        </section>
+      </div>
+    </>
   )
 }
+
+export default CenterBigImageHero

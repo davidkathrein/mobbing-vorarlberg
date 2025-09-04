@@ -151,7 +151,6 @@ export interface Page {
   hero: {
     type: 'none' | 'highImpact' | 'centerBigImage' | 'mediumImpact' | 'lowImpact';
     announcement?: {
-      tag?: string | null;
       link: {
         type?: ('reference' | 'custom') | null;
         reference?:
@@ -1090,7 +1089,6 @@ export interface PagesSelect<T extends boolean = true> {
         announcement?:
           | T
           | {
-              tag?: T;
               link?:
                 | T
                 | {

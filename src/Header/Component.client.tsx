@@ -36,14 +36,14 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   return (
     <>
       <header
-        className="navbar fixed top-0 left-0 right-0 z-20 [body[data-payload-admin-bar=true]]:top-[var(--payload-admin-bar-height)]"
+        className="navbar fixed top-0 left-0 right-0 z-20"
         {...(theme ? { 'data-theme': theme } : {})}
       >
         <nav
           data-state={menuState && 'active'}
-          className="fixed z-20 w-full border-b border-dashed bg-background backdrop-blur sm:relative"
+          className="fixed container z-20 w-full border-b border-dashed bg-background backdrop-blur sm:relative"
         >
-          <div className="m-auto max-w-5xl px-6">
+          <div>
             <div className="flex flex-wrap items-center justify-between gap-6 py-3 sm:gap-0 sm:py-4">
               <div className="flex w-full justify-between sm:w-auto">
                 <Link href="/" aria-label="home" className="flex items-center space-x-2">

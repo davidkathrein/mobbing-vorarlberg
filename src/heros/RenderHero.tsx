@@ -5,7 +5,7 @@ import type { Page } from '@/payload-types'
 import { HighImpactHero } from '@/heros/HighImpact'
 import { LowImpactHero } from '@/heros/LowImpact'
 import { MediumImpactHero } from '@/heros/MediumImpact'
-import { CenterBigImageHero } from '@/heros/CenterBigImage'
+import CenterBigImageHero from '@/heros/CenterBigImage/index'
 
 const heroes = {
   highImpact: HighImpactHero,

@@ -48,12 +48,6 @@ export const hero: Field = {
       type: 'group',
       required: false,
       fields: [
-        {
-          name: 'tag',
-          type: 'text',
-          required: false,
-          defaultValue: 'Neu',
-        },
         link({
           appearances: ['default'],
         }),
