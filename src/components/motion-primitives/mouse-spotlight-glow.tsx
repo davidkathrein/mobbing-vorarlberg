@@ -6,7 +6,10 @@ export default function MouseSpotlightGlow() {
     <>
       <Spotlight
         className="motion-reduce:hidden from-accent via-accent/90 to-accent/80 blur-xl"
-        size={64}
+        size={96}
+        springOptions={{
+          duration: 0.1,
+        }}
       />
       <div className="motion-reduce:hidden absolute inset-0">
         <svg className="h-full w-full">

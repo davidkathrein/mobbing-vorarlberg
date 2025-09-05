@@ -17,7 +17,7 @@ export const hero: Field = {
     {
       name: 'type',
       type: 'select',
-      defaultValue: 'lowImpact',
+      defaultValue: 'centerBigImage',
       label: 'Type',
       options: [
         {
@@ -48,8 +48,20 @@ export const hero: Field = {
       type: 'group',
       required: false,
       fields: [
+        {
+          name: 'showAnnouncement',
+          type: 'checkbox',
+          label: 'Show Announcement',
+          required: false,
+          defaultValue: false,
+        },
         link({
           appearances: ['default'],
+          overrides: {
+            admin: {
+              condition: (_, { type, showAnnouncement } = {}) => !!showAnnouncement,
+            },
+          },
         }),
       ],
       admin: {

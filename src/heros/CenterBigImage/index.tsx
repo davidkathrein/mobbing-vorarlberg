@@ -44,7 +44,7 @@ export const CenterBigImageHero: React.FC<Page['hero']> = ({
             <div className="absolute inset-0 -z-10 size-full [background:radial-gradient(125%_125%_at_50%_100%,transparent_0%,var(--color-background)_75%)]"></div>
             <div className="mx-auto max-w-7xl px-6">
               <div className="text-center sm:mx-auto lg:mr-auto lg:mt-0">
-                {announcement && (
+                {announcement && announcement.link && !!announcement.showAnnouncement && (
                   <AnimatedGroup variants={transitionVariants}>
                     <CMSLink
                       url={announcement?.link.url ?? '/home'}

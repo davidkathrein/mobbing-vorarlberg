@@ -53,7 +53,6 @@ export const AdminBar: React.FC<{
       if (barRef.current) {
         const height = barRef.current.clientHeight
         document.documentElement.style.setProperty('--payload-admin-bar-height', `${height}px`)
-        console.log(barRef.current)
       }
     }
 

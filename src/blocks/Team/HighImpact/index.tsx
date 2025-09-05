@@ -24,6 +24,13 @@ export default function DisclosureCard({ member }: Props) {
   const isOpen = isHovered || isLockedOpen
 
   const theme = 'dark'
+  const media = typeof member.profilePicture === 'object' ? member.profilePicture : null
+  const heading = member.name
+  const subheading = member.jobDescription
+
+  const content = member.biography
+  const contentLink = member.link
+  const defaultLinkLabel = 'Kontakt'
 
   const imageVariants = {
     collapsed: { scale: 1, filter: 'blur(0px)' },
@@ -42,12 +49,9 @@ export default function DisclosureCard({ member }: Props) {
     mass: 0.2,
   }
 
-  const media = typeof member.profilePicture === 'object' ? member.profilePicture : null
-  console.log(member.link?.url ? member.link.url : 'no URL provided')
-
   return (
     <div
-      className="relative overflow-hidden rounded-xl"
+      className="relative overflow-hidden rounded-xl aspect-square"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       data-theme={theme}
@@ -56,8 +60,8 @@ export default function DisclosureCard({ member }: Props) {
         <MotionImage
           src={media?.url}
           width="826"
-          height="1239"
-          alt={media.alt ?? member.name ?? ''}
+          height="826"
+          alt={media.alt ?? heading ?? ''}
           className="pointer-events-none h-auto w-full select-none"
           animate={isOpen ? 'expanded' : 'collapsed'}
           variants={imageVariants}
@@ -79,26 +83,26 @@ export default function DisclosureCard({ member }: Props) {
             style={{ pointerEvents: 'none' }}
           >
             <div className="flex justify-between">
-              <h3 className="font-bold">{member.name}</h3>
-              <span className="text-foreground/70 font-light">{member.jobDescription}</span>
+              <h3 className="font-bold">{heading}</h3>
+              <span className="text-foreground/70 font-light">{subheading}</span>
             </div>
           </button>
         </DisclosureTrigger>
         <DisclosureContent>
           <div className="flex flex-col pb-4 text-sm">
-            {member.biography ? (
-              <RichText className="text-sm p-0" data={member.biography} />
+            {content ? (
+              <RichText className="text-sm p-0" data={content} />
             ) : (
               <div>Keine Beschreibung hinzugefügt.</div>
             )}
             <div className="pl-1 mt-4">
               <CMSLink
                 className="text-foreground"
-                url={member.link?.url ?? '#'}
+                url={contentLink?.url}
                 appearance="outline"
                 size="sm"
               >
-                {member.link?.label ?? 'Kontakt'}
+                {contentLink?.label ?? defaultLinkLabel}
               </CMSLink>
             </div>
           </div>
