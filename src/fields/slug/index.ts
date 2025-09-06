@@ -1,6 +1,7 @@
 import type { CheckboxField, TextField } from 'payload'
 
 import { formatSlugHook } from './formatSlug'
+import isUUID from '@/utilities/isUUIDV4'
 
 type Overrides = {
   slugOverrides?: Partial<TextField>
@@ -46,6 +47,12 @@ export const slugField: Slug = (fieldToUse = 'title', overrides = {}) => {
           },
         },
       },
+    },
+    validate: (val) => {
+      if (val && typeof val === 'string' && isUUID(val)) {
+        return 'Please provide a custom slug. Auto generated ids shouldnt be used.'
+      }
+      return true
     },
   }
 
