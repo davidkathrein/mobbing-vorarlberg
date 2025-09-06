@@ -54,6 +54,7 @@ export const Users: CollectionConfig = {
     },
     {
       name: 'link',
+      label: 'Erscheint bei der Team-Übersicht als Button.',
       required: false,
       type: 'group',
       fields: [

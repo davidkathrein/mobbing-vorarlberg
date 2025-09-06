@@ -19,6 +19,9 @@ export const hero: Field = {
       type: 'select',
       defaultValue: 'centerBigImage',
       label: 'Type',
+      admin: {
+        description: 'Hero Variante auswählen, kann meistens bei Standard belassen werden.',
+      },
       options: [
         {
           label: 'None',
@@ -42,31 +45,6 @@ export const hero: Field = {
         },
       ],
       required: true,
-    },
-    {
-      name: 'announcement',
-      type: 'group',
-      required: false,
-      fields: [
-        {
-          name: 'showAnnouncement',
-          type: 'checkbox',
-          label: 'Show Announcement',
-          required: false,
-          defaultValue: false,
-        },
-        link({
-          appearances: ['default'],
-          overrides: {
-            admin: {
-              condition: (_, { type, showAnnouncement } = {}) => !!showAnnouncement,
-            },
-          },
-        }),
-      ],
-      admin: {
-        condition: (_, { type } = {}) => ['centerBigImage'].includes(type),
-      },
     },
     {
       name: 'richText',
@@ -96,6 +74,31 @@ export const hero: Field = {
       },
       relationTo: 'media',
       required: true,
+    },
+    {
+      name: 'announcement',
+      type: 'group',
+      required: false,
+      fields: [
+        {
+          name: 'showAnnouncement',
+          type: 'checkbox',
+          label: 'Show Announcement',
+          required: false,
+          defaultValue: false,
+        },
+        link({
+          appearances: ['default'],
+          overrides: {
+            admin: {
+              condition: (_, { type, showAnnouncement } = {}) => !!showAnnouncement,
+            },
+          },
+        }),
+      ],
+      admin: {
+        condition: (_, { type } = {}) => ['centerBigImage'].includes(type),
+      },
     },
   ],
   label: false,

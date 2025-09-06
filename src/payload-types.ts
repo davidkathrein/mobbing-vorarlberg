@@ -149,31 +149,10 @@ export interface Page {
   id: number;
   title: string;
   hero: {
+    /**
+     * Hero Variante auswählen, kann meistens bei Standard belassen werden.
+     */
     type: 'none' | 'highImpact' | 'centerBigImage' | 'mediumImpact' | 'lowImpact';
-    announcement?: {
-      showAnnouncement?: boolean | null;
-      link?: {
-        type?: ('reference' | 'custom') | null;
-        reference?:
-          | ({
-              relationTo: 'pages';
-              value: number | Page;
-            } | null)
-          | ({
-              relationTo: 'posts';
-              value: number | Post;
-            } | null);
-        /**
-         * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all links.
-         */
-        url?: string | null;
-        label: string;
-        /**
-         * Choose how the link should be rendered.
-         */
-        appearance?: 'default' | null;
-      };
-    };
     richText?: {
       root: {
         type: string;
@@ -206,6 +185,9 @@ export interface Page {
              * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all links.
              */
             url?: string | null;
+            /**
+             * Text des Links.
+             */
             label: string;
             /**
              * Choose how the link should be rendered.
@@ -216,6 +198,33 @@ export interface Page {
         }[]
       | null;
     media?: (number | null) | Media;
+    announcement?: {
+      showAnnouncement?: boolean | null;
+      link?: {
+        type?: ('reference' | 'custom') | null;
+        reference?:
+          | ({
+              relationTo: 'pages';
+              value: number | Page;
+            } | null)
+          | ({
+              relationTo: 'posts';
+              value: number | Post;
+            } | null);
+        /**
+         * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all links.
+         */
+        url?: string | null;
+        /**
+         * Text des Links.
+         */
+        label: string;
+        /**
+         * Choose how the link should be rendered.
+         */
+        appearance?: 'default' | null;
+      };
+    };
   };
   layout: (
     | CallToActionBlock
@@ -501,6 +510,9 @@ export interface CallToActionBlock {
            * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all links.
            */
           url?: string | null;
+          /**
+           * Text des Links.
+           */
           label: string;
           /**
            * Choose how the link should be rendered.
@@ -554,6 +566,9 @@ export interface ContentBlock {
            * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all links.
            */
           url?: string | null;
+          /**
+           * Text des Links.
+           */
           label: string;
           /**
            * Choose how the link should be rendered.
@@ -1167,20 +1182,6 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         type?: T;
-        announcement?:
-          | T
-          | {
-              showAnnouncement?: T;
-              link?:
-                | T
-                | {
-                    type?: T;
-                    reference?: T;
-                    url?: T;
-                    label?: T;
-                    appearance?: T;
-                  };
-            };
         richText?: T;
         links?:
           | T
@@ -1197,6 +1198,20 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
             };
         media?: T;
+        announcement?:
+          | T
+          | {
+              showAnnouncement?: T;
+              link?:
+                | T
+                | {
+                    type?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    appearance?: T;
+                  };
+            };
       };
   layout?:
     | T
@@ -1812,6 +1827,9 @@ export interface Header {
            * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all links.
            */
           url?: string | null;
+          /**
+           * Text des Links.
+           */
           label: string;
         };
         id?: string | null;
@@ -1834,6 +1852,9 @@ export interface Header {
            * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all links.
            */
           url?: string | null;
+          /**
+           * Text des Links.
+           */
           label: string;
           /**
            * Choose how the link should be rendered.
@@ -1869,6 +1890,9 @@ export interface Footer {
            * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all links.
            */
           url?: string | null;
+          /**
+           * Text des Links.
+           */
           label: string;
         };
         id?: string | null;

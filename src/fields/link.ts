@@ -1,4 +1,4 @@
-import type { Field, GroupField } from 'payload'
+import type { Field, GroupField, TextFieldValidation } from 'payload'
 
 import deepMerge from '@/utilities/deepMerge'
 
@@ -20,6 +20,19 @@ type LinkType = (options?: {
   disableLabel?: boolean
   overrides?: Partial<GroupField>
 }) => Field
+
+const urlValidate: TextFieldValidation = (value) => {
+  if (typeof value !== 'string') return 'URL is required.'
+  const trimmed = value.trim()
+  if (
+    trimmed.startsWith('http://') ||
+    trimmed.startsWith('https://') ||
+    trimmed.startsWith('mailto:')
+  ) {
+    return true
+  }
+  return "URL must start with 'http://', 'https://', or 'mailto:'."
+}
 
 export const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = {}) => {
   const linkResult: GroupField = {
@@ -86,6 +99,8 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
           "Email addresses are added in this format: 'mailto:example@google.com'. This format works on all links.",
         condition: (_, siblingData) => siblingData?.type === 'custom',
       },
+      validate: urlValidate,
+      defaultValue: 'https://',
       label: 'Custom URL',
       required: true,
     },
@@ -109,6 +124,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
           type: 'text',
           admin: {
             width: '50%',
+            description: 'Text des Links.',
           },
           label: 'Label',
           required: true,
