@@ -37,7 +37,7 @@ export const TeamList: Block = {
     {
       name: 'paragraph',
       type: 'textarea',
-      required: true,
+      required: false,
       admin: {
         condition: (_, siblingData) => siblingData.type !== 'lowImpact',
       },

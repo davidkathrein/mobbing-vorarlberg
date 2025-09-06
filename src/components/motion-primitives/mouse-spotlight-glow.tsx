@@ -5,7 +5,7 @@ export default function MouseSpotlightGlow() {
   return (
     <>
       <Spotlight
-        className="motion-reduce:hidden from-accent via-accent/90 to-accent/80 blur-xl"
+        className="motion-reduce:hidden from-accent via-accent/90 to-accent/80 dark:opacity-30 blur-xl"
         size={96}
         springOptions={{
           duration: 0.1,
@@ -20,7 +20,7 @@ export default function MouseSpotlightGlow() {
                 d="M0 4H4M4 4V0M4 4H8M4 4V8"
                 stroke="currentColor"
                 strokeOpacity="0.3"
-                className="stroke-primary-foreground"
+                className="stroke-background"
               />
               <rect
                 x="3"
@@ -29,7 +29,7 @@ export default function MouseSpotlightGlow() {
                 height="2"
                 fill="currentColor"
                 fillOpacity="0.25"
-                className="fill-primary-foreground"
+                className="fill-background"
               />
             </pattern>
           </defs>

@@ -39,10 +39,13 @@ const renderTeamList = async (props: Props) => {
             {props.caption}
           </span>
         )}
-        {props.type === 'highImpact' && props.paragraph && (
+        {props.type === 'highImpact' &&
+        typeof props.paragraph === 'string' &&
+        props.paragraph.trim().length > 0 ? (
           <HeaderHighImpact heading={props.heading} paragraph={props.paragraph} />
+        ) : (
+          <HeaderLowImpact heading={props.heading} />
         )}
-        {props.type === 'lowImpact' && <HeaderLowImpact heading={props.heading} />}
         <div className={cn(props.type === 'highImpact' ? 'mt-6 md:mt-12' : 'mt-6')}>
           <div className="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
             {members.map((member, index) => {

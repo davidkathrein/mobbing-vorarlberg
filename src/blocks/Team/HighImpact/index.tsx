@@ -56,35 +56,35 @@ export default function DisclosureCard({ member }: Props) {
       onMouseLeave={() => setIsHovered(false)}
       data-theme={theme}
     >
-      {media?.url && (
-        <MotionImage
-          src={media?.url}
-          width="826"
-          height="826"
-          alt={media.alt ?? heading ?? ''}
-          className="pointer-events-none h-auto w-full select-none"
-          animate={isOpen ? 'expanded' : 'collapsed'}
-          variants={imageVariants}
-          transition={transition}
-        />
-      )}
+      <MotionImage
+        src={media?.url ?? null}
+        width="826"
+        height="826"
+        alt={media?.alt ?? heading ?? ''}
+        className="h-full w-full object-cover"
+        wrapperClassName="pointer-events-none h-full w-full select-none"
+        animate={isOpen ? 'expanded' : 'collapsed'}
+        variants={imageVariants}
+        transition={transition}
+        placeholder="blur"
+      />
       <Disclosure
         onOpenChange={() => setIsLockedOpen((prev) => !prev)}
         open={isOpen}
-        className="absolute bottom-0 left-0 right-0 bg-background px-4 pt-2"
+        className="absolute bottom-0 left-0 right-0 bg-card px-4 pt-2"
         variants={contentVariants}
         transition={transition}
       >
         <DisclosureTrigger>
           <button
-            className="w-full pb-2 text-left text-[14px] font-medium text-foreground"
+            className="w-full pb-2 text-left text-[14px] font-medium text-accent-foreground"
             type="button"
             tabIndex={-1} // Prevent double toggling on card click
             style={{ pointerEvents: 'none' }}
           >
             <div className="flex justify-between">
               <h3 className="font-bold">{heading}</h3>
-              <span className="text-foreground/70 font-light">{subheading}</span>
+              <span className="text-muted-foreground font-light">{subheading}</span>
             </div>
           </button>
         </DisclosureTrigger>

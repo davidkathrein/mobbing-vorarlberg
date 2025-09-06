@@ -46,7 +46,7 @@ export default async function RootLayout({
         {/* backgrounds from  https://patterncraft.fun */}
         {/* Stellar Mist */}
         <div
-          className="fixed inset-0 h-screen z-[-1] hidden dark:block"
+          className="fixed inset-0 h-screen z-[-1] hidden dark:block opacity-40"
           style={{
             background: `
      radial-gradient(ellipse 140% 50% at 15% 60%, rgba(124, 58, 237, 0.11), transparent 48%),
@@ -62,7 +62,7 @@ export default async function RootLayout({
         <div
           className="fixed inset-0 h-screen z-[-1] dark:hidden"
           style={{
-            background: 'hsl(var(--background))',
+            background: '#ffffff',
             backgroundImage: `
         radial-gradient(
           circle at top right,
@@ -76,7 +76,7 @@ export default async function RootLayout({
         />
 
         <Providers>
-          <Analytics />
+          <Analytics debug={true} />
           <AdminBar
             adminBarProps={{
               preview: isEnabled,

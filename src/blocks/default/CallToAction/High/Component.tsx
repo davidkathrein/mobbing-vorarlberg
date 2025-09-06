@@ -17,7 +17,7 @@ export const CTAHigh: React.FC<CTABlockProps> = ({ links, richText }) => {
           enableGutter={false}
         />
       )}
-      <div className="flex flex-col gap-8 z-10">
+      <div className="flex flex-row gap-4 z-10">
         {(links || []).map(({ link }, i) => {
           return <CMSLink key={i} size="default" {...link} />
         })}
