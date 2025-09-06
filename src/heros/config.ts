@@ -74,7 +74,7 @@ export const hero: Field = {
           ['highImpact', 'mediumImpact', 'centerBigImage'].includes(type),
       },
       relationTo: 'media',
-      required: true,
+      required: false,
     },
     {
       name: 'announcement',
