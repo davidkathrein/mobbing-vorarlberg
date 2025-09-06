@@ -47,6 +47,33 @@ export const hero: Field = {
       required: true,
     },
     {
+      name: 'announcement',
+      type: 'group',
+      required: false,
+      fields: [
+        {
+          name: 'showAnnouncement',
+          type: 'checkbox',
+          label: 'Show Announcement',
+          required: false,
+          defaultValue: false,
+        },
+        link({
+          appearances: ['default'],
+          overrides: {
+            admin: {
+              condition: (_, { type, showAnnouncement } = {}) => !!showAnnouncement,
+            },
+          },
+        }),
+      ],
+      admin: {
+        condition: (_, { type } = {}) => ['centerBigImage'].includes(type),
+        description:
+          'Optional: Ankündigung, wie z.B. eine wichtige und bald zuvorstehende Pressekonferenz.',
+      },
+    },
+    {
       name: 'richText',
       type: 'richText',
       editor: lexicalEditor({
@@ -75,31 +102,6 @@ export const hero: Field = {
       },
       relationTo: 'media',
       required: false,
-    },
-    {
-      name: 'announcement',
-      type: 'group',
-      required: false,
-      fields: [
-        {
-          name: 'showAnnouncement',
-          type: 'checkbox',
-          label: 'Show Announcement',
-          required: false,
-          defaultValue: false,
-        },
-        link({
-          appearances: ['default'],
-          overrides: {
-            admin: {
-              condition: (_, { type, showAnnouncement } = {}) => !!showAnnouncement,
-            },
-          },
-        }),
-      ],
-      admin: {
-        condition: (_, { type } = {}) => ['centerBigImage'].includes(type),
-      },
     },
   ],
   label: false,
