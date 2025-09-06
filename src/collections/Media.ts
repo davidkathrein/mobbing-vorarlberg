@@ -27,7 +27,8 @@ export const Media: CollectionConfig = {
       name: 'alt',
       type: 'text',
       admin: {
-        description: 'Nur leerlassen, wenn das Bild ausschließlich optische Bedeutung hat.',
+        description:
+          'Wird angezeigt, wenn Bild nicht geladen werden kann. Wichtig für Suchmaschine und Barrierefreihet. Soll Bild für Blinde beschreiben.',
       },
       //required: true,
     },
