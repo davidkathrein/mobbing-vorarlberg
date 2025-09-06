@@ -17,6 +17,7 @@ import { draftMode } from 'next/headers'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
+import type { Config } from '@/payload-types'
 
 const robotoSans = Roboto({ subsets: ['latin'], weight: 'variable', variable: '--font-sans' })
 const robotoMono = Roboto_Mono({
@@ -30,13 +31,13 @@ export default async function RootLayout({
   params,
 }: {
   children: React.ReactNode
-  params: { locale: string }
+  params: Promise<{ lang: Config['locale'] }>
 }) {
   const { isEnabled } = await draftMode()
-  const locale = params?.locale || process.env.DEFAULT_LOCALE || 'de'
+  const { lang } = await params
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning>
       <head>
         <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />

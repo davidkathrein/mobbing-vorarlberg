@@ -8,6 +8,7 @@ import { getPayload } from 'payload'
 import React from 'react'
 import PageClient from './page.client'
 import { notFound } from 'next/navigation'
+import { Config } from '@/payload-types'
 
 export const revalidate = 600
 
@@ -69,11 +70,12 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   }
 }
 
-export async function generateStaticParams() {
+export async function generateStaticParams({ lang }: { lang: Config['locale'] }) {
   const payload = await getPayload({ config: configPromise })
   const { totalDocs } = await payload.count({
     collection: 'posts',
     overrideAccess: false,
+    locale: lang,
   })
 
   const totalPages = Math.ceil(totalDocs / 10)

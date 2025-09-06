@@ -8,16 +8,17 @@ import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
 import RichText from '@/components/RichText'
 
-import type { Post } from '@/payload-types'
+import type { Config, Post } from '@/payload-types'
 
 import { PostHero } from '@/heros/PostHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 
-export async function generateStaticParams() {
+export async function generateStaticParams({ lang }: { lang: Config['locale'] }) {
   const payload = await getPayload({ config: configPromise })
   const posts = await payload.find({
+    locale: lang,
     collection: 'posts',
     draft: false,
     limit: 1000,
