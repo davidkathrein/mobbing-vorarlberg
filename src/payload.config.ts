@@ -1,5 +1,6 @@
 // storage-adapter-import-placeholder
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { s3Storage } from '@payloadcms/storage-s3'
 
 import sharp from 'sharp' // sharp-import
 import path from 'path'
@@ -79,7 +80,21 @@ export default buildConfig({
   globals: [Header, Footer],
   plugins: [
     ...plugins,
-    // storage-adapter-placeholder
+    s3Storage({
+      collections: {
+        media: true, // or your collection slug
+      },
+      bucket: process.env.SUPABASE_BUCKET ?? '',
+      config: {
+        endpoint: process.env.SUPABASE_S3_ENDPOINT,
+        credentials: {
+          accessKeyId: process.env.SUPABASE_S3_ACCESS_KEY ?? '',
+          secretAccessKey: process.env.SUPABASE_S3_SECRET_KEY ?? '',
+        },
+        region: process.env.SUPABASE_S3_REGION || 'us-east-1',
+        forcePathStyle: true,
+      },
+    }),
   ],
   secret: process.env.PAYLOAD_SECRET,
   sharp,
