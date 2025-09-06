@@ -18,6 +18,10 @@ const nextConfig = {
           protocol: url.protocol.replace(':', ''),
         }
       }),
+      {
+        hostname: 'olhcgaubgmyusgdwslov.supabase.co',
+        protocol: 'https',
+      },
     ],
   },
   webpack: (webpackConfig) => {

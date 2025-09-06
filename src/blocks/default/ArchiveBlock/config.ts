@@ -10,6 +10,16 @@ import {
 export const Archive: Block = {
   slug: 'archive',
   interfaceName: 'ArchiveBlock',
+  labels: {
+    singular: {
+      de: 'CMS Archiv',
+      en: 'CMS Archive',
+    },
+    plural: {
+      de: 'CMS Archiv Blöcke',
+      en: 'CMS Archive Blocks',
+    },
+  },
   fields: [
     {
       name: 'introContent',
@@ -87,8 +97,4 @@ export const Archive: Block = {
       relationTo: ['posts'],
     },
   ],
-  labels: {
-    plural: 'Archives',
-    singular: 'Archive',
-  },
 }

@@ -2,6 +2,11 @@ import type { Block, TypedUser } from 'payload'
 
 export const TeamList: Block = {
   slug: 'teamList',
+  labels: {
+    singular: 'Team',
+    plural: 'Team Blöcke',
+  },
+  imageURL: 'https://olhcgaubgmyusgdwslov.supabase.co/storage/v1/object/public/admin/TeamBlock.png',
   fields: [
     {
       name: 'type',

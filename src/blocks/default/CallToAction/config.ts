@@ -12,6 +12,17 @@ import { linkGroup } from '../../../fields/linkGroup'
 export const CallToAction: Block = {
   slug: 'cta',
   interfaceName: 'CallToActionBlock',
+  labels: {
+    singular: {
+      de: 'Call to Action',
+      en: 'Call to Action',
+    },
+    plural: {
+      de: 'Calls to Action',
+      en: 'Calls to Action',
+    },
+  },
+  imageURL: 'https://olhcgaubgmyusgdwslov.supabase.co/storage/v1/object/public/admin/CTABlock.png',
   fields: [
     {
       name: 'richText',
@@ -46,8 +57,4 @@ export const CallToAction: Block = {
       required: true,
     },
   ],
-  labels: {
-    plural: 'Calls to Action',
-    singular: 'Call to Action',
-  },
 }

@@ -25,6 +25,11 @@ export const FAQ_ICON_NAMES: IconName[] = [
 export const Faq: Block = {
   slug: 'faq',
   interfaceName: 'FaqBlock',
+  labels: {
+    singular: 'FAQ',
+    plural: 'FAQs',
+  },
+  imageURL: 'https://olhcgaubgmyusgdwslov.supabase.co/storage/v1/object/public/admin/FAQBlock.png',
   fields: [
     {
       name: 'header',

@@ -2,6 +2,18 @@ import type { Block } from 'payload'
 
 export const LogoCloud: Block = {
   slug: 'logos',
+  labels: {
+    singular: {
+      de: 'Logos (zB Sponsoren)',
+      en: 'Logos (eg Sponsors)',
+    },
+    plural: {
+      de: 'Logos (zB Sponsoren)',
+      en: 'Logos (eg Sponsors)',
+    },
+  },
+  imageURL:
+    'https://olhcgaubgmyusgdwslov.supabase.co/storage/v1/object/public/admin/LogoCloudBlock.png',
   fields: [
     {
       name: 'text',

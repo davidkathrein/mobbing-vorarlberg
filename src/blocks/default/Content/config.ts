@@ -66,6 +66,18 @@ const columnFields: Field[] = [
 export const Content: Block = {
   slug: 'content',
   interfaceName: 'ContentBlock',
+  labels: {
+    singular: {
+      de: 'Content Block',
+      en: 'Content Block',
+    },
+    plural: {
+      de: 'Content Blöcke',
+      en: 'Content Blocks',
+    },
+  },
+  imageURL:
+    'https://olhcgaubgmyusgdwslov.supabase.co/storage/v1/object/public/admin/ContentBlock.png',
   fields: [
     {
       name: 'columns',
