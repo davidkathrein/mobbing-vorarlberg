@@ -47,6 +47,16 @@ export const Posts: CollectionConfig<'posts'> = {
       description: true,
     },
   },
+  labels: {
+    singular: {
+      en: 'Offer',
+      de: 'Angebot',
+    },
+    plural: {
+      en: 'Offers',
+      de: 'Angebote',
+    },
+  },
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
@@ -91,8 +101,8 @@ export const Posts: CollectionConfig<'posts'> = {
                 features: ({ rootFeatures }) => {
                   return [
                     ...rootFeatures,
-                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                    BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
+                    HeadingFeature({ enabledHeadingSizes: ['h1'] }),
+                    BlocksFeature({ blocks: [Banner, MediaBlock] }),
                     FixedToolbarFeature(),
                     InlineToolbarFeature(),
                     HorizontalRuleFeature(),

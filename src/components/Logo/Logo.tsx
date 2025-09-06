@@ -25,6 +25,6 @@ export const Logo = (props: Props) => {
     //   className={clsx('max-w-[9.375rem] w-full h-[34px]', className)}
     //   src="https://raw.githubusercontent.com/payloadcms/payload/main/packages/ui/src/assets/payload-logo-light.svg"
     // />
-    <div className={clsx('text-foreground', className)}>MobbingV</div>
+    <div className={clsx('text-primary', className)}>MobbingV</div>
   )
 }

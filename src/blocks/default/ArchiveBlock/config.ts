@@ -28,7 +28,7 @@ export const Archive: Block = {
         features: ({ rootFeatures }) => {
           return [
             ...rootFeatures,
-            HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+            HeadingFeature({ enabledHeadingSizes: ['h2', 'h3'] }),
             FixedToolbarFeature(),
             InlineToolbarFeature(),
           ]
@@ -73,7 +73,10 @@ export const Archive: Block = {
         condition: (_, siblingData) => siblingData.populateBy === 'collection',
       },
       hasMany: true,
-      label: 'Categories To Show',
+      label: {
+        en: 'Filter by Categories',
+        de: 'Nach Kategorien filtern',
+      },
       relationTo: 'categories',
     },
     {

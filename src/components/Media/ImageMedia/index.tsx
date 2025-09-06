@@ -56,12 +56,15 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         .map(([, value]) => `(max-width: ${value}px) ${value * 2}w`)
         .join(', ')
 
+  if (src === '') console.error('ImageMedia: No image source provided. ')
+
   return (
     <picture className={cn(pictureClassName)}>
       <NextImage
         alt={alt || ''}
         className={cn(imgClassName)}
         fill={fill}
+        width={!fill ? width : undefined}
         height={!fill ? height : undefined}
         placeholder="blur"
         blurDataURL={placeholderBlur}
@@ -69,7 +72,6 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         loading={loading}
         sizes={sizes}
         src={src}
-        width={!fill ? width : undefined}
       />
     </picture>
   )

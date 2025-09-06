@@ -22,6 +22,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const pathname = usePathname()
   const [menuState, setMenuState] = React.useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
     setHeaderTheme(null)
@@ -33,15 +34,28 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headerTheme])
 
+  // Detect scroll to toggle transparent background at top of page
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 4)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   return (
     <>
       <header
-        className="navbar fixed top-0 left-0 right-0 z-20 bg-background/80 backdrop-blur"
+        className="navbar fixed top-0 left-0 right-0 z-20 transition-colors"
         {...(theme ? { 'data-theme': theme } : {})}
       >
         <nav
           data-state={menuState && 'active'}
-          className="fixed container z-20 w-full border-b border-dashed sm:relative"
+          className={cn(
+            'fixed container z-20 w-full border-b border-dashed sm:relative bg-background/80 backdrop-blur',
+            {
+              'sm:bg-transparent': !scrolled && !menuState,
+            },
+          )}
         >
           <div>
             <div className="flex flex-wrap items-center justify-between gap-6 py-3 sm:gap-0 sm:py-4">
