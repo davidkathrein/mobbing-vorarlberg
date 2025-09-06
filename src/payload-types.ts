@@ -305,7 +305,7 @@ export interface Post {
 export interface Media {
   id: number;
   /**
-   * Nur leerlassen, wenn das Bild ausschließlich optische Bedeutung hat.
+   * Wird angezeigt, wenn Bild nicht geladen werden kann. Wichtig für Suchmaschine und Barrierefreihet. Soll Bild für Blinde beschreiben.
    */
   alt?: string | null;
   caption?: {

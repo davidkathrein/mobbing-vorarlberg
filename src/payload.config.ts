@@ -84,6 +84,7 @@ export default buildConfig({
       collections: {
         media: true, // or your collection slug
       },
+      disableLocalStorage: true,
       bucket: process.env.SUPABASE_BUCKET ?? '',
       config: {
         endpoint: process.env.SUPABASE_S3_ENDPOINT,

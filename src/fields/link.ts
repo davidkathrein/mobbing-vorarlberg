@@ -21,17 +21,28 @@ type LinkType = (options?: {
   overrides?: Partial<GroupField>
 }) => Field
 
-const urlValidate: TextFieldValidation = (value) => {
-  if (typeof value !== 'string') return 'URL is required.'
-  const trimmed = value.trim()
-  if (
-    trimmed.startsWith('http://') ||
-    trimmed.startsWith('https://') ||
-    trimmed.startsWith('mailto:')
-  ) {
-    return true
+export const urlValidate: TextFieldValidation = (value) => {
+  if (typeof value !== 'string' || value.trim() === '') {
+    return 'URL is required.'
   }
-  return "URL must start with 'http://', 'https://', or 'mailto:'."
+  const trimmed = value.trim()
+
+  const validProtocols = ['http://', 'https://', 'mailto:']
+  const hasValidProtocol = validProtocols.some((proto) => trimmed.startsWith(proto))
+
+  if (!hasValidProtocol) {
+    return "URL must start with 'http://', 'https://', or 'mailto:'."
+  }
+
+  for (const proto of validProtocols) {
+    if (trimmed.startsWith(proto)) {
+      if (trimmed.length === proto.length) {
+        return 'URL cannot be empty.'
+      }
+    }
+  }
+
+  return true
 }
 
 export const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = {}) => {

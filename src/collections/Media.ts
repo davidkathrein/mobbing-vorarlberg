@@ -1,4 +1,5 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionBeforeOperationHook, CollectionConfig } from 'payload'
+import slugify from 'slugify'
 
 import {
   FixedToolbarFeature,
@@ -13,6 +14,13 @@ import { authenticated } from '../access/authenticated'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+export const sanitizeFileName: CollectionBeforeOperationHook = async ({ req }) => {
+  const file = req.file
+  if (typeof file?.name === 'string') {
+    file.name = slugify(file.name, { strict: true })
+  }
+}
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -80,5 +88,8 @@ export const Media: CollectionConfig = {
         crop: 'center',
       },
     ],
+  },
+  hooks: {
+    beforeOperation: [sanitizeFileName],
   },
 }
