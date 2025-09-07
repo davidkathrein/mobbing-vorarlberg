@@ -61,6 +61,7 @@ export const hero: Field = {
         link({
           appearances: ['default'],
           overrides: {
+            localized: true,
             admin: {
               condition: (_, { type, showAnnouncement } = {}) => !!showAnnouncement,
             },

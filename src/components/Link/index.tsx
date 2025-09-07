@@ -3,7 +3,7 @@ import { cn } from '@/utilities/ui'
 import Link from 'next/link'
 import React from 'react'
 
-import type { Page, Post } from '@/payload-types'
+import type { Config, Page, Post } from '@/payload-types'
 
 type CMSLinkType = {
   appearance?: 'inline' | ButtonProps['variant']
@@ -18,6 +18,7 @@ type CMSLinkType = {
   size?: ButtonProps['size'] | null
   type?: 'custom' | 'reference' | null
   url?: string | null
+  locale: Config['locale']
 }
 
 export const CMSLink: React.FC<CMSLinkType> = (props) => {
@@ -31,6 +32,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     reference,
     size: sizeFromProps,
     url,
+    locale,
   } = props
   const SITE_URL = process.env.NEXT_PUBLIC_SERVER_URL
 
@@ -50,7 +52,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
 
   let href =
     type === 'reference' && typeof reference?.value === 'object' && reference.value.slug
-      ? `${reference?.relationTo !== 'pages' ? `/${reference?.relationTo}` : ''}/${
+      ? `${reference?.relationTo !== 'pages' ? `/${reference?.relationTo}` : ''}/${locale}/${
           reference.value.slug
         }`
       : url

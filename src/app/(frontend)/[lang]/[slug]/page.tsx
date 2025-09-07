@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 import { PayloadRedirects } from '@/components/PayloadRedirects'
-import configPromise from '@payload-config'
+import configPromise, { locales } from '@payload-config'
 import { getPayload, type RequiredDataFromCollectionSlug } from 'payload'
 import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
@@ -47,12 +47,12 @@ type Args = {
 
 export default async function Page({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
-  const { slug = 'home', lang } = await paramsPromise
+  const { slug = 'home', lang = 'de' } = await paramsPromise
   const url = '/' + slug
 
   const page: RequiredDataFromCollectionSlug<'pages'> | null = await queryPageBySlug({
     slug,
-    lang: 'de',
+    lang,
   })
 
   if (!page) {
@@ -89,6 +89,12 @@ const queryPageBySlug = cache(async ({ slug, lang }: { slug: string; lang: Confi
   const { isEnabled: draft } = await draftMode()
 
   const payload = await getPayload({ config: configPromise })
+
+  if (!locales.includes(lang)) {
+    lang = 'de'
+  }
+
+  console.log({ lang, slug, draft })
 
   const result = await payload.find({
     collection: 'pages',

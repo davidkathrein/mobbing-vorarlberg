@@ -23,6 +23,8 @@ import { getServerSideURL } from './utilities/getURL'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+export const locales = ['de', 'en']
+
 export default buildConfig({
   admin: {
     components: {
@@ -62,7 +64,7 @@ export default buildConfig({
   },
   localization: {
     defaultLocale: 'de',
-    locales: ['de', 'en'],
+    locales,
   },
   i18n: {
     supportedLanguages: { en, de },
@@ -92,7 +94,7 @@ export default buildConfig({
           accessKeyId: process.env.SUPABASE_S3_ACCESS_KEY ?? '',
           secretAccessKey: process.env.SUPABASE_S3_SECRET_KEY ?? '',
         },
-        region: process.env.SUPABASE_S3_REGION || 'us-east-1',
+        region: process.env.SUPABASE_S3_REGION || 'eu-central-1',
         forcePathStyle: true,
       },
     }),

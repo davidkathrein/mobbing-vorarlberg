@@ -1,11 +1,13 @@
 import type { CollectionSlug, PayloadRequest } from 'payload'
 import { getPayload } from 'payload'
+import type { Config } from '@/payload-types'
 
 import { draftMode } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { NextRequest } from "next/server"
+import { NextRequest } from 'next/server'
 
 import configPromise from '@payload-config'
+import { locales } from '@/payload.config' // <-- import your locales
 
 export async function GET(req: NextRequest): Promise<Response> {
   const payload = await getPayload({ config: configPromise })
@@ -17,6 +19,8 @@ export async function GET(req: NextRequest): Promise<Response> {
   const slug = searchParams.get('slug')
   const previewSecret = searchParams.get('previewSecret')
 
+  console.log({ path, collection, slug, previewSecret, env: process.env.PREVIEW_SECRET })
+
   if (previewSecret !== process.env.PREVIEW_SECRET) {
     return new Response('You are not allowed to preview this page', { status: 403 })
   }
@@ -25,9 +29,14 @@ export async function GET(req: NextRequest): Promise<Response> {
     return new Response('Insufficient search params', { status: 404 })
   }
 
-  if (!path.startsWith('/')) {
+  const decodedPath = decodeURIComponent(path)
+  if (!decodedPath.startsWith('/')) {
     return new Response('This endpoint can only be used for relative previews', { status: 500 })
   }
+
+  // Get lang from path, default to 'de'
+  const segments = decodedPath.split('/').filter(Boolean)
+  const lang = locales.includes(segments[0]) ? segments[0] : 'de'
 
   let user
 
@@ -48,9 +57,7 @@ export async function GET(req: NextRequest): Promise<Response> {
     return new Response('You are not allowed to preview this page', { status: 403 })
   }
 
-  // You can add additional checks here to see if the user is allowed to preview this page
-
   draft.enable()
 
-  redirect(path)
+  redirect(decodedPath)
 }

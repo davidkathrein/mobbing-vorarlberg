@@ -95,6 +95,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
     {
       name: 'reference',
       type: 'relationship',
+      localized: true,
       admin: {
         condition: (_, siblingData) => siblingData?.type === 'reference',
       },
@@ -105,6 +106,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
     {
       name: 'url',
       type: 'text',
+      localized: true,
       admin: {
         description:
           "Email addresses are added in this format: 'mailto:example@google.com'. This format works on all links.",
@@ -133,6 +135,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
         {
           name: 'label',
           type: 'text',
+          localized: true,
           admin: {
             width: '50%',
             description: 'Text des Links.',
