@@ -8,16 +8,17 @@ import {
 } from '@/components/motion-primitives/disclosure'
 import { Transition } from 'motion/react'
 import MotionImage from '@/components/motion-primitives/motion-image'
-import { User } from '@/payload-types'
+import { Config, User } from '@/payload-types'
 import { Button } from '@/components/ui/button'
 import { CMSLink } from '@/components/Link'
 import RichText from '@/components/RichText'
 
 type Props = {
   member: User
+  locale: Config['locale']
 }
 
-export default function DisclosureCard({ member }: Props) {
+export default function DisclosureCard({ member, locale = 'de' }: Props) {
   const [isHovered, setIsHovered] = useState(false)
   const [isLockedOpen, setIsLockedOpen] = useState(false)
 
@@ -101,6 +102,7 @@ export default function DisclosureCard({ member }: Props) {
                 url={contentLink?.url}
                 appearance="outline"
                 size="sm"
+                locale={locale}
               >
                 {contentLink?.label ?? defaultLinkLabel}
               </CMSLink>

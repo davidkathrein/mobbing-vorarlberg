@@ -34,7 +34,8 @@ export const Archive: Block = {
           ]
         },
       }),
-      label: 'Intro Content',
+      label: 'Text über den Dynamischen Inhalten',
+      localized: true,
     },
     {
       name: 'populateBy',

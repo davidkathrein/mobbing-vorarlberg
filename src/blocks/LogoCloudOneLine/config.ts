@@ -19,6 +19,8 @@ export const LogoCloud: Block = {
       name: 'text',
       type: 'text',
       required: true,
+      localized: true,
+      label: 'Text Links neben den Logos.',
     },
     {
       name: 'logos',

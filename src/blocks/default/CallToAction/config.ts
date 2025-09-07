@@ -38,6 +38,7 @@ export const CallToAction: Block = {
         },
       }),
       label: false,
+      localized: true,
     },
     linkGroup({
       appearances: ['default', 'outline'],
