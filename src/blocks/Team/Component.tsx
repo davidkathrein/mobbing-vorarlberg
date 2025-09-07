@@ -2,7 +2,7 @@ import { FC, Suspense } from 'react'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 
-import { TeamList as TeamListProps } from '@/payload-types'
+import { Config, TeamList as TeamListProps } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 import HeaderLowImpact from '@/components/Headers/LowImpact'
 import HeaderHighImpact from '@/components/Headers/HighImpact'
@@ -10,6 +10,7 @@ import MemberWDescription from './HighImpact/index'
 import MemberWODescription from './LowImpact/index'
 
 type Props = TeamListProps & {
+  locale: Config['locale']
   // potentially add filters here later (eg. for Angebotsseite)
 }
 
@@ -50,9 +51,14 @@ const renderTeamList = async (props: Props) => {
           <div className="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
             {members.map((member, index) => {
               return props.type === 'highImpact' ? (
-                <MemberWDescription key={member.id} member={member} />
+                <MemberWDescription key={member.id} member={member} locale={props.locale} />
               ) : (
-                <MemberWODescription member={member} index={index} key={member.id} />
+                <MemberWODescription
+                  member={member}
+                  index={index}
+                  key={member.id}
+                  locale={props.locale}
+                />
               )
             })}
           </div>

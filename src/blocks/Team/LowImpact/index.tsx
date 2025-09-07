@@ -1,14 +1,15 @@
 import { FC } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { User } from '@/payload-types'
+import { Config, User } from '@/payload-types'
 
 type Props = {
   member: User
   index: number
+  locale: Config['locale']
 }
 
-export const Component: FC<Props> = ({ member, index }) => {
+export const Component: FC<Props> = ({ member, index, locale }) => {
   const media = typeof member.profilePicture === 'object' ? member.profilePicture : null
   return (
     <div key={member.id} className="group overflow-hidden">

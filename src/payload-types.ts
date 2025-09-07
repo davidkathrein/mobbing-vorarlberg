@@ -457,6 +457,10 @@ export interface User {
      * Wird auf Team-Seite angezeigt. Kann keine Seiten bearbeiten.
      */
     team?: boolean | null;
+    /**
+     * Je höher der Wert, desto weiter oben erscheint das Team-Mitglied.
+     */
+    sortiing_index?: number | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -1534,6 +1538,7 @@ export interface UsersSelect<T extends boolean = true> {
     | {
         admin?: T;
         team?: T;
+        sortiing_index?: T;
       };
   updatedAt?: T;
   createdAt?: T;

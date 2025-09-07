@@ -69,7 +69,7 @@ export default async function Page({ params: paramsPromise }: Args) {
 
       {draft && <LivePreviewListener />}
 
-      <RenderHero {...hero} />
+      <RenderHero {...hero} locale={lang} />
       <RenderBlocks blocks={layout} />
     </article>
   )
@@ -93,8 +93,6 @@ const queryPageBySlug = cache(async ({ slug, lang }: { slug: string; lang: Confi
   if (!locales.includes(lang)) {
     lang = 'de'
   }
-
-  console.log({ lang, slug, draft })
 
   const result = await payload.find({
     collection: 'pages',

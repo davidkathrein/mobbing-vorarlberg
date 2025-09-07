@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { TextEffect } from '@/components/motion-primitives/text-effect'
 import { ProgressiveBlur } from '@/components/motion-primitives/progressive-blur'
 import { AnimatedGroup } from '@/components/motion-primitives/animated-group'
-import { Page } from '@/payload-types'
+import { Config, Page } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
 import RichText from '@/components/RichText'
 
@@ -30,11 +30,16 @@ const transitionVariants = {
   },
 }
 
-export const CenterBigImageHero: React.FC<Page['hero']> = ({
+type Props = Page['hero'] & {
+  locale: Config['locale']
+}
+
+export const CenterBigImageHero: React.FC<Props> = ({
   links,
   media,
   richText,
   announcement,
+  locale,
 }) => {
   return (
     <>
@@ -50,6 +55,7 @@ export const CenterBigImageHero: React.FC<Page['hero']> = ({
                       url={announcement?.link.url ?? '/home'}
                       reference={announcement?.link?.reference}
                       className="hover:bg-background dark:hover:border-t-border bg-muted group mx-auto flex w-fit items-center gap-4 rounded-full border p-1 pl-4 shadow-md shadow-zinc-950/5 transition-colors duration-300 dark:border-t-white/5 dark:shadow-zinc-950"
+                      locale={locale}
                     >
                       <span className="text-foreground text-sm">{announcement?.link.label}</span>
                       <span className="block h-4 w-0.5 border-l bg-background"></span>
@@ -105,7 +111,7 @@ export const CenterBigImageHero: React.FC<Page['hero']> = ({
                       {links.map(({ link }, i) => {
                         return (
                           <li key={i}>
-                            <CMSLink {...link} size={'lg'} />
+                            <CMSLink {...link} size={'lg'} locale={locale} />
                           </li>
                         )
                       })}
