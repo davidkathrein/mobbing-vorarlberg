@@ -3,11 +3,16 @@
 import React from 'react'
 
 import type { Header as HeaderType } from '@/payload-types'
+import type { Config } from 'src/payload-types'
 
 import { CMSLink } from '@/components/Link'
 import { cn } from '@/utilities/ui'
 
-export const HeaderNav: React.FC<{ data: HeaderType; isOpen: boolean }> = ({ data, isOpen }) => {
+export const HeaderNav: React.FC<{
+  data: HeaderType
+  isOpen: boolean
+  locale: Config['locale']
+}> = ({ data, isOpen, locale = 'de' }) => {
   const navItems = data?.navItems || []
   const navButtons = data?.navButtons || []
 
@@ -17,7 +22,15 @@ export const HeaderNav: React.FC<{ data: HeaderType; isOpen: boolean }> = ({ dat
     >
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
         {navItems.map(({ link }, i) => {
-          return <CMSLink key={i} {...link} appearance="link" className="mr-6 text-foreground" />
+          return (
+            <CMSLink
+              key={i}
+              {...link}
+              appearance="link"
+              className="mr-6 text-foreground"
+              locale={locale}
+            />
+          )
         })}
       </div>
       <div className="flex w-full sm:flex-row-reverse flex-reverse space-y-0 gap-3 sm:border-l sm:pl-6">
@@ -33,7 +46,15 @@ export const HeaderNav: React.FC<{ data: HeaderType; isOpen: boolean }> = ({ dat
 
           if (!href) return null
 
-          return <CMSLink key={i} {...link} appearance={link.appearance ?? 'default'} size="sm" />
+          return (
+            <CMSLink
+              key={i}
+              {...link}
+              appearance={link.appearance ?? 'default'}
+              size="sm"
+              locale={locale}
+            />
+          )
         })}
       </div>
     </nav>

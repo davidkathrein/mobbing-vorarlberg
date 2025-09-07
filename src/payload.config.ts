@@ -65,6 +65,7 @@ export default buildConfig({
   localization: {
     defaultLocale: 'de',
     locales,
+    fallback: true,
   },
   i18n: {
     supportedLanguages: { en, de },

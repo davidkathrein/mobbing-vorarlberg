@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
 import type { Header } from '@/payload-types'
+import type { Config } from 'src/payload-types'
 
 import { Logo } from '@/components/Logo/Logo'
 import { HeaderNav } from './Nav'
@@ -14,9 +15,10 @@ import { cn } from '@/utilities/ui'
 
 interface HeaderClientProps {
   data: Header
+  locale?: Config['locale']
 }
 
-export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
+export const HeaderClient: React.FC<HeaderClientProps> = ({ data, locale = 'de' }) => {
   /* Storing the value in a useState to avoid hydration errors */
   const [theme, setTheme] = useState<string | null>(null)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
@@ -85,7 +87,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                   />
                 </button>
               </div>
-              <HeaderNav data={data} isOpen={menuState} />
+              <HeaderNav data={data} isOpen={menuState} locale={locale} />
             </div>
           </div>
         </nav>

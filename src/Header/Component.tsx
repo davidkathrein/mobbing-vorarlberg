@@ -1,11 +1,12 @@
 import { HeaderClient } from './Component.client'
-import { getCachedGlobal } from '@/utilities/getGlobals'
+import { getGlobal } from '@/utilities/getGlobals'
+import type { Config } from '@/payload-types'
 import React from 'react'
 
 import type { Header } from '@/payload-types'
 
-export async function Header() {
-  const headerData: Header = await getCachedGlobal('header', 1)()
+export async function Header({ locale }: { locale: Config['locale'] }) {
+  const headerData: Header = await getGlobal('header', 1, locale)
 
-  return <HeaderClient data={headerData} locale/>
+  return <HeaderClient data={headerData} locale={locale} />
 }

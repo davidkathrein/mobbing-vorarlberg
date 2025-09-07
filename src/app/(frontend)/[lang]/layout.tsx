@@ -84,7 +84,7 @@ export default async function RootLayout({
             }}
           />
 
-          <Header />
+          <Header locale={lang} />
           {children}
           <Footer />
         </Providers>

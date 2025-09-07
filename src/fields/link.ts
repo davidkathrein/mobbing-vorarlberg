@@ -27,11 +27,11 @@ export const urlValidate: TextFieldValidation = (value) => {
   }
   const trimmed = value.trim()
 
-  const validProtocols = ['http://', 'https://', 'mailto:']
+  const validProtocols = ['http://', 'https://', 'mailto:', '/']
   const hasValidProtocol = validProtocols.some((proto) => trimmed.startsWith(proto))
 
   if (!hasValidProtocol) {
-    return "URL must start with 'http://', 'https://', or 'mailto:'."
+    return "URL must start with 'http://', 'https://', or 'mailto:' or must be relative '/'."
   }
 
   for (const proto of validProtocols) {
@@ -160,7 +160,10 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
       name: 'appearance',
       type: 'select',
       admin: {
-        description: 'Choose how the link should be rendered.',
+        description: {
+          en: 'Choose how the link should be rendered.',
+          de: 'Wähle, wie der Link aussehen soll.',
+        },
       },
       defaultValue: 'default',
       options: appearanceOptionsToUse,

@@ -61,8 +61,8 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     return null
   }
 
-  if (href === '/home' || href === '/homepage' || href === '/index') {
-    href = '/'
+  if (href.trim() === 'https://') {
+    href = '/#'
   }
 
   const isInternal = isInternalUrl(href)
