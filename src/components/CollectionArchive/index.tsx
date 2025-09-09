@@ -2,13 +2,16 @@ import { cn } from '@/utilities/ui'
 import React from 'react'
 
 import { Card, CardPostData } from '@/components/Card'
+import { Config } from '@/payload-types'
 
 export type Props = {
   posts: CardPostData[]
+  showTags?: boolean
+  locale: Config['locale']
 }
 
 export const CollectionArchive: React.FC<Props> = (props) => {
-  const { posts } = props
+  const { posts, showTags = true, locale } = props
 
   return (
     <div className={cn('container')}>
@@ -18,7 +21,13 @@ export const CollectionArchive: React.FC<Props> = (props) => {
             if (typeof result === 'object' && result !== null) {
               return (
                 <div className="col-span-4" key={index}>
-                  <Card className="h-full" doc={result} relationTo="posts" showCategories />
+                  <Card
+                    className="h-full"
+                    doc={result}
+                    relationTo="posts"
+                    showCategories={showTags}
+                    locale={locale}
+                  />
                 </div>
               )
             }

@@ -8,7 +8,7 @@ import {
   LinkFeature,
   UnderlineFeature,
 } from '@payloadcms/richtext-lexical'
-import { linkGroup } from '@/fields/linkGroup'
+import { link } from '@/fields/link'
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -40,6 +40,7 @@ export const Users: CollectionConfig = {
     {
       name: 'jobDescription',
       type: 'text',
+      localized: true,
       maxLength: 20,
       admin: {
         condition: (data) => {
@@ -51,25 +52,11 @@ export const Users: CollectionConfig = {
       name: 'biography',
       type: 'richText',
       editor: lexicalEditor(),
+      localized: true,
     },
-    {
-      name: 'link',
-      label: 'Erscheint bei der Team-Übersicht als Button.',
-      required: false,
-      type: 'group',
-      fields: [
-        {
-          name: 'url',
-          type: 'text',
-          required: false,
-        },
-        {
-          name: 'label',
-          type: 'text',
-          required: false,
-        },
-      ],
-    },
+    link({
+      appearances: false,
+    }),
     {
       name: 'roles',
       type: 'group',

@@ -68,6 +68,21 @@ export const Archive: Block = {
       ],
     },
     {
+      name: 'hideTags',
+      type: 'checkbox',
+      label: {
+        en: 'Hide tags?',
+        de: 'Tags ausblenden?',
+      },
+      admin: {
+        description: {
+          en: 'Hide tags displayed on each post card',
+          de: 'Kategorien auf den Karten-Items ausblenden',
+        },
+      },
+      defaultValue: false,
+    },
+    {
       name: 'categories',
       type: 'relationship',
       admin: {

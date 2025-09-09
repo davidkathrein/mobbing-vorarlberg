@@ -7,20 +7,31 @@ import React from 'react'
 import { Search } from '@/search/Component'
 import PageClient from './page.client'
 import { CardPostData } from '@/components/Card'
+import { Config } from '@/payload-types'
 
 type Args = {
   searchParams: Promise<{
     q: string
   }>
+  params: Promise<{
+    slug?: string
+    lang: Config['locale']
+  }>
 }
-export default async function Page({ searchParams: searchParamsPromise }: Args) {
+export default async function Page({
+  searchParams: searchParamsPromise,
+  params: paramsPromise,
+}: Args) {
   const { q: query } = await searchParamsPromise
-  const payload = await getPayload({ config: configPromise })
+  const [payload, { lang }] = await Promise.all([
+    getPayload({ config: configPromise }),
+    paramsPromise,
+  ])
 
   const posts = await payload.find({
     collection: 'search',
     depth: 1,
-    limit: 12,
+    limit: 96,
     select: {
       title: true,
       slug: true,
@@ -73,7 +84,7 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
       </div>
 
       {posts.totalDocs > 0 ? (
-        <CollectionArchive posts={posts.docs as CardPostData[]} />
+        <CollectionArchive posts={posts.docs as CardPostData[]} locale={lang} />
       ) : (
         <div className="container">No results found.</div>
       )}

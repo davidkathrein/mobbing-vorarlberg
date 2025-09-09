@@ -39,14 +39,15 @@ export async function generateStaticParams({ lang }: { lang: Config['locale'] })
 type Args = {
   params: Promise<{
     slug?: string
+    lang: Config['locale']
   }>
 }
 
 export default async function Post({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
-  const { slug = '' } = await paramsPromise
-  const url = '/posts/' + slug
-  const post = await queryPostBySlug({ slug })
+  const { slug = '', lang = 'de' } = await paramsPromise
+  const url = `/${lang}/posts/${slug}`
+  const post = await queryPostBySlug({ slug, lang })
 
   if (!post) return <PayloadRedirects url={url} />
 
@@ -59,15 +60,21 @@ export default async function Post({ params: paramsPromise }: Args) {
 
       {draft && <LivePreviewListener />}
 
-      <PostHero post={post} />
+      <PostHero post={post} locale={lang} />
 
       <div className="flex flex-col items-center gap-4 pt-8">
         <div className="container">
-          <RichText className="max-w-[48rem] mx-auto" data={post.content} enableGutter={false} />
+          <RichText
+            className="max-w-[48rem] mx-auto"
+            data={post.content}
+            enableGutter={false}
+            lang={lang}
+          />
           {post.relatedPosts && post.relatedPosts.length > 0 && (
             <RelatedPosts
               className="mt-12 max-w-[52rem] lg:grid lg:grid-cols-subgrid col-start-1 col-span-3 grid-rows-[2fr]"
               docs={post.relatedPosts.filter((post) => typeof post === 'object')}
+              locale={lang}
             />
           )}
         </div>
@@ -77,13 +84,13 @@ export default async function Post({ params: paramsPromise }: Args) {
 }
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-  const { slug = '' } = await paramsPromise
-  const post = await queryPostBySlug({ slug })
+  const { slug = '', lang = 'de' } = await paramsPromise
+  const post = await queryPostBySlug({ slug, lang: 'de' })
 
   return generateMeta({ doc: post })
 }
 
-const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
+const queryPostBySlug = cache(async ({ slug, lang }: { slug: string; lang: Config['locale'] }) => {
   const { isEnabled: draft } = await draftMode()
 
   const payload = await getPayload({ config: configPromise })
@@ -99,6 +106,8 @@ const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
         equals: slug,
       },
     },
+    locale: lang,
+    fallbackLocale: 'de',
   })
 
   return result.docs?.[0] || null

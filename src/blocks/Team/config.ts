@@ -28,16 +28,19 @@ export const TeamList: Block = {
       name: 'caption',
       type: 'text',
       required: false,
+      localized: true,
     },
     {
       name: 'heading',
       type: 'text',
       required: true,
+      localized: true,
     },
     {
       name: 'paragraph',
       type: 'textarea',
       required: false,
+      localized: true,
       admin: {
         condition: (_, siblingData) => siblingData.type !== 'lowImpact',
       },

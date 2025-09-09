@@ -36,6 +36,7 @@ export const LogoCloud: Block = {
           name: 'textLogo',
           type: 'text',
           required: false,
+          localized: false,
           admin: {
             condition: (_, siblingData) => !siblingData.logo,
             description: 'Text logos will be used if no image is selected',

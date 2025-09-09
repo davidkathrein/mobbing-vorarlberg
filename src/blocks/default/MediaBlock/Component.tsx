@@ -4,7 +4,7 @@ import { cn } from '@/utilities/ui'
 import React from 'react'
 import RichText from '@/components/RichText'
 
-import type { MediaBlock as MediaBlockProps } from '@/payload-types'
+import type { Config, MediaBlock as MediaBlockProps } from '@/payload-types'
 
 import { Media } from '../../../components/Media'
 
@@ -16,6 +16,7 @@ type Props = MediaBlockProps & {
   imgClassName?: string
   staticImage?: StaticImageData
   disableInnerContainer?: boolean
+  locale: Config['locale']
 }
 
 export const MediaBlock: React.FC<Props> = (props) => {
@@ -47,6 +48,7 @@ export const MediaBlock: React.FC<Props> = (props) => {
           imgClassName={cn('border border-border rounded-[0.8rem]', imgClassName)}
           resource={media}
           src={staticImage}
+          locale={props.locale}
         />
       )}
       {caption && (
@@ -59,7 +61,7 @@ export const MediaBlock: React.FC<Props> = (props) => {
             captionClassName,
           )}
         >
-          <RichText data={caption} enableGutter={false} />
+          <RichText data={caption} enableGutter={false} lang={props.locale} />
         </div>
       )}
     </div>

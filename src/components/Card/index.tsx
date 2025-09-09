@@ -4,9 +4,12 @@ import useClickableCard from '@/utilities/useClickableCard'
 import Link from 'next/link'
 import React, { Fragment } from 'react'
 
-import type { Post } from '@/payload-types'
+import type { Config, Post } from '@/payload-types'
 
 import { Media } from '@/components/Media'
+import { Badge } from '../ui/badge'
+import { isColorLight as isColorLightFn } from '@/utilities/colorChecks'
+import { CMSLink } from '../Link'
 
 export type CardPostData = Pick<Post, 'slug' | 'categories' | 'meta' | 'title'>
 
@@ -17,9 +20,10 @@ export const Card: React.FC<{
   relationTo?: 'posts'
   showCategories?: boolean
   title?: string
+  locale: Config['locale']
 }> = (props) => {
   const { card, link } = useClickableCard({})
-  const { className, doc, relationTo, showCategories, title: titleFromProps } = props
+  const { className, doc, relationTo, showCategories, title: titleFromProps, locale } = props
 
   const { slug, categories, meta, title } = doc || {}
   const { description, image: metaImage } = meta || {}
@@ -39,13 +43,15 @@ export const Card: React.FC<{
     >
       <div className="relative w-full ">
         {!metaImage && <div className="">No image</div>}
-        {metaImage && typeof metaImage !== 'string' && <Media resource={metaImage} size="33vw" />}
+        {metaImage && typeof metaImage !== 'string' && (
+          <Media resource={metaImage} size="33vw" locale={locale} />
+        )}
       </div>
       <div className="p-4">
         {showCategories && hasCategories && (
           <div className="uppercase text-sm mb-4">
-            {showCategories && hasCategories && (
-              <div>
+            {
+              <div className="flex flex-wrap gap-1">
                 {categories?.map((category, index) => {
                   if (typeof category === 'object') {
                     const { title: titleFromCategory } = category
@@ -53,19 +59,31 @@ export const Card: React.FC<{
                     const categoryTitle = titleFromCategory || 'Untitled category'
 
                     const isLast = index === categories.length - 1
+                    const color = category.backgroundColor
+                    const isColorLight = color ? isColorLightFn(color) : false
 
                     return (
-                      <Fragment key={index}>
-                        {categoryTitle}
-                        {!isLast && <Fragment>, &nbsp;</Fragment>}
-                      </Fragment>
+                      <CMSLink locale={locale} url={'/#'} key={index}>
+                        <Badge
+                          variant="default"
+                          style={{
+                            backgroundColor: category.backgroundColor ?? 'hsla(var(--primary))',
+                          }}
+                          className={cn(
+                            isColorLight ? 'text-secondary-foreground' : 'text-primary-foreground',
+                          )}
+                        >
+                          {categoryTitle}
+                        </Badge>
+                        {!isLast && <Fragment>,</Fragment>}
+                      </CMSLink>
                     )
                   }
 
                   return null
                 })}
               </div>
-            )}
+            }
           </div>
         )}
         {titleToUse && (

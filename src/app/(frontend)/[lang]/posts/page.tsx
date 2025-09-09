@@ -7,12 +7,23 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
 import PageClient from './page.client'
+import { Config } from '@/payload-types'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
 
-export default async function Page() {
-  const payload = await getPayload({ config: configPromise })
+type Args = {
+  params: Promise<{
+    slug?: string
+    lang: Config['locale']
+  }>
+}
+
+export default async function Post({ params: paramsPromise }: Args) {
+  const [payload, { lang }] = await Promise.all([
+    getPayload({ config: configPromise }),
+    paramsPromise,
+  ])
 
   const posts = await payload.find({
     collection: 'posts',
@@ -25,6 +36,7 @@ export default async function Page() {
       categories: true,
       meta: true,
     },
+    locale: lang,
   })
 
   return (
@@ -45,7 +57,7 @@ export default async function Page() {
         />
       </div>
 
-      <CollectionArchive posts={posts.docs} />
+      <CollectionArchive posts={posts.docs} locale={lang} />
 
       <div className="container">
         {posts.totalPages > 1 && posts.page && (

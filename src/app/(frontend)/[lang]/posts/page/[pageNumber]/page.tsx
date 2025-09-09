@@ -15,12 +15,15 @@ export const revalidate = 600
 type Args = {
   params: Promise<{
     pageNumber: string
+    lang: Config['locale']
   }>
 }
 
 export default async function Page({ params: paramsPromise }: Args) {
-  const { pageNumber } = await paramsPromise
-  const payload = await getPayload({ config: configPromise })
+  const [payload, { lang, pageNumber }] = await Promise.all([
+    getPayload({ config: configPromise }),
+    paramsPromise,
+  ])
 
   const sanitizedPageNumber = Number(pageNumber)
 
@@ -32,6 +35,7 @@ export default async function Page({ params: paramsPromise }: Args) {
     limit: 96,
     page: sanitizedPageNumber,
     overrideAccess: false,
+    locale: lang,
   })
 
   return (
@@ -47,12 +51,12 @@ export default async function Page({ params: paramsPromise }: Args) {
         <PageRange
           collection="posts"
           currentPage={posts.page}
-          limit={12}
+          limit={96}
           totalDocs={posts.totalDocs}
         />
       </div>
 
-      <CollectionArchive posts={posts.docs} />
+      <CollectionArchive posts={posts.docs} locale={lang} />
 
       <div className="container">
         {posts?.page && posts?.totalPages > 1 && (

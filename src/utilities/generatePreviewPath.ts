@@ -12,7 +12,7 @@ type Props = {
 }
 
 export const generatePreviewPath = ({ collection, slug, req }: Props) => {
-  const path = `${collectionPrefixMap[collection]}/${req.locale}/${slug}`
+  const path = `/${req.locale}${collectionPrefixMap[collection]}/${slug}`
   const encodedParams = new URLSearchParams({
     slug,
     collection,

@@ -38,6 +38,7 @@ export const Media: CollectionConfig = {
         description:
           'Wird angezeigt, wenn Bild nicht geladen werden kann. Wichtig für Suchmaschine und Barrierefreihet. Soll Bild für Blinde beschreiben.',
       },
+      localized: true,
       //required: true,
     },
     {
@@ -48,6 +49,7 @@ export const Media: CollectionConfig = {
           return [...rootFeatures, FixedToolbarFeature(), InlineToolbarFeature()]
         },
       }),
+      localized: true,
     },
   ],
   upload: {

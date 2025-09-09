@@ -403,6 +403,10 @@ export interface Media {
 export interface Category {
   id: number;
   title: string;
+  /**
+   * Backgroundcolor of the Category-Tag. Generate colors on https://coolors.co/generate. Paste as hex value, e.g. #ff0000.
+   */
+  backgroundColor?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
   parent?: (number | null) | Category;
@@ -444,9 +448,25 @@ export interface User {
     };
     [k: string]: unknown;
   } | null;
-  link?: {
+  link: {
+    type?: ('reference' | 'custom') | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: number | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: number | Post;
+        } | null);
+    /**
+     * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all links.
+     */
     url?: string | null;
-    label?: string | null;
+    /**
+     * Text des Links.
+     */
+    label: string;
   };
   roles?: {
     /**
@@ -621,6 +641,10 @@ export interface ArchiveBlock {
   } | null;
   populateBy?: ('collection' | 'selection') | null;
   relationTo?: 'posts' | null;
+  /**
+   * Hide tags displayed on each post card
+   */
+  hideTags?: boolean | null;
   categories?: (number | Category)[] | null;
   limit?: number | null;
   selectedDocs?:
@@ -1312,6 +1336,7 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
   introContent?: T;
   populateBy?: T;
   relationTo?: T;
+  hideTags?: T;
   categories?: T;
   limit?: T;
   selectedDocs?: T;
@@ -1504,6 +1529,7 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface CategoriesSelect<T extends boolean = true> {
   title?: T;
+  backgroundColor?: T;
   slug?: T;
   slugLock?: T;
   parent?: T;
@@ -1530,6 +1556,8 @@ export interface UsersSelect<T extends boolean = true> {
   link?:
     | T
     | {
+        type?: T;
+        reference?: T;
         url?: T;
         label?: T;
       };
