@@ -15,10 +15,10 @@ import { cn } from '@/utilities/ui'
 
 interface HeaderClientProps {
   data: Header
-  locale?: Config['locale']
+  locale: Config['locale']
 }
 
-export const HeaderClient: React.FC<HeaderClientProps> = ({ data, locale = 'de' }) => {
+export const HeaderClient: React.FC<HeaderClientProps> = ({ data, locale }) => {
   /* Storing the value in a useState to avoid hydration errors */
   const [theme, setTheme] = useState<string | null>(null)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()

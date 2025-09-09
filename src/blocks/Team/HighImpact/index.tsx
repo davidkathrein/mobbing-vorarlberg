@@ -92,7 +92,7 @@ export default function DisclosureCard({ member, locale = 'de' }: Props) {
         <DisclosureContent>
           <div className="flex flex-col pb-4 text-sm">
             {content ? (
-              <RichText className="text-sm p-0" data={content} />
+              <RichText className="text-sm p-0" data={content} lang={locale} />
             ) : (
               <div>Keine Beschreibung hinzugefügt.</div>
             )}

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import type { Page } from '@/payload-types'
+import type { Config, Page } from '@/payload-types'
 
 import RichText from '@/components/RichText'
 
@@ -14,11 +14,15 @@ type LowImpactHeroType =
       richText?: Page['hero']['richText']
     })
 
-export const LowImpactHero: React.FC<LowImpactHeroType> = ({ children, richText }) => {
+export const LowImpactHero: React.FC<LowImpactHeroType & { locale: Config['locale'] }> = ({
+  children,
+  richText,
+  locale,
+}) => {
   return (
     <div className="container mt-16">
       <div className="max-w-[48rem]">
-        {children || (richText && <RichText data={richText} enableGutter={false} />)}
+        {children || (richText && <RichText data={richText} enableGutter={false} lang={locale} />)}
       </div>
     </div>
   )

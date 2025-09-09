@@ -7,7 +7,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-import { FaqBlock as FaqBlockProps } from '@/payload-types'
+import { Config, FaqBlock as FaqBlockProps } from '@/payload-types'
 import { useLocale } from '@payloadcms/ui/providers/Locale'
 
 import {
@@ -25,7 +25,9 @@ import {
   BookOpen,
 } from 'lucide-react'
 
-type Props = FaqBlockProps & {}
+type Props = FaqBlockProps & {
+  locale: Config['locale']
+}
 
 export function FaqThree(props: Props) {
   const faqItems = props.items
@@ -70,6 +72,7 @@ export function FaqThree(props: Props) {
             <RichText
               className="prose p-0 prose-h2:text-3xl prose-p:text-muted-foreground prose-a:text-foreground sticky top-20"
               data={props.header}
+              lang={props.locale}
             />
           </div>
           <div className="md:w-2/3">
@@ -88,7 +91,7 @@ export function FaqThree(props: Props) {
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="pb-5">
-                      <RichText data={item.answer} />
+                      <RichText data={item.answer} lang={props.locale} />
                     </AccordionContent>
                   </AccordionItem>
                 ))}

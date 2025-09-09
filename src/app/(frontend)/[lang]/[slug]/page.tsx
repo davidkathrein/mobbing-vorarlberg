@@ -13,27 +13,48 @@ import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { Config } from '@/payload-types'
 
-export async function generateStaticParams({ lang }: { lang: Config['locale'] }) {
+export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
-  const pages = await payload.find({
-    locale: lang,
-    collection: 'pages',
-    draft: false,
-    limit: 1000,
-    overrideAccess: false,
-    pagination: false,
-    select: {
-      slug: true,
-    },
-  })
 
-  const params = pages.docs
-    ?.filter((doc) => {
-      return doc.slug !== 'home'
+  const params: { lang: string; slug: string }[] = []
+
+  // Generate params for each locale
+  for (const lang of locales as Config['locale'][]) {
+    const pages = await payload.find({
+      locale: lang,
+      collection: 'pages',
+      draft: false,
+      limit: 1000,
+      overrideAccess: false,
+      pagination: false,
+      select: {
+        slug: true,
+      },
     })
-    .map(({ slug }) => {
-      return { slug }
+
+    pages.docs.forEach((doc) => {
+      let slug: string
+
+      if (typeof doc.slug === 'string') {
+        slug = doc.slug
+      } else if (typeof doc.slug === 'object' && doc.slug !== null) {
+        // Extract slug for current locale
+        slug =
+          (doc.slug as any)[lang] || (doc.slug as any).de || (Object.values(doc.slug)[0] as string)
+      } else {
+        console.log('couldnt extract slug from page', doc)
+        return // Skip invalid slugs
+      }
+
+      // Exclude home page and ensure we have a valid slug
+      if (slug && slug !== 'home') {
+        params.push({
+          lang: lang as string,
+          slug,
+        })
+      }
     })
+  }
 
   return params
 }

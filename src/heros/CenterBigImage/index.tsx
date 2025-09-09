@@ -89,7 +89,7 @@ export const CenterBigImageHero: React.FC<Props> = ({
                     }}
                     className="mt-12"
                   >
-                    <RichText data={richText} className="prose prose-h1:text-6xl" />
+                    <RichText data={richText} className="prose prose-h1:text-6xl" lang={locale} />
                   </AnimatedGroup>
                 )}
                 <AnimatedGroup

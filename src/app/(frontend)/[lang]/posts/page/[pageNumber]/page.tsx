@@ -3,7 +3,7 @@ import type { Metadata } from 'next/types'
 import { CollectionArchive } from '@/components/CollectionArchive'
 import { PageRange } from '@/components/PageRange'
 import { Pagination } from '@/components/Pagination'
-import configPromise from '@payload-config'
+import configPromise, { locales } from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
 import PageClient from './page.client'
@@ -11,6 +11,7 @@ import { notFound } from 'next/navigation'
 import { Config } from '@/payload-types'
 
 export const revalidate = 600
+const PAGE_LIMIT = 96
 
 type Args = {
   params: Promise<{
@@ -32,7 +33,7 @@ export default async function Page({ params: paramsPromise }: Args) {
   const posts = await payload.find({
     collection: 'posts',
     depth: 1,
-    limit: 96,
+    limit: PAGE_LIMIT,
     page: sanitizedPageNumber,
     overrideAccess: false,
     locale: lang,
@@ -51,7 +52,7 @@ export default async function Page({ params: paramsPromise }: Args) {
         <PageRange
           collection="posts"
           currentPage={posts.page}
-          limit={96}
+          limit={PAGE_LIMIT}
           totalDocs={posts.totalDocs}
         />
       </div>
@@ -73,22 +74,28 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
     title: `Angebote ${pageNumber || ''} - Mobbing Vorarlberg`,
   }
 }
-
-export async function generateStaticParams({ lang }: { lang: Config['locale'] }) {
+export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
-  const { totalDocs } = await payload.count({
-    collection: 'posts',
-    overrideAccess: false,
-    locale: lang,
-  })
 
-  const totalPages = Math.ceil(totalDocs / 10)
+  const params: any[] = []
 
-  const pages: { pageNumber: string }[] = []
+  // Generate params for each locale
+  for (const lang of locales) {
+    const { totalDocs } = await payload.count({
+      collection: 'posts',
+      overrideAccess: false,
+      locale: lang as Config['locale'],
+    })
 
-  for (let i = 1; i <= totalPages; i++) {
-    pages.push({ pageNumber: String(i) })
+    const totalPages = Math.ceil(totalDocs / PAGE_LIMIT) // Note: using 96 to match your limit above
+
+    for (let i = 1; i <= totalPages; i++) {
+      params.push({
+        lang,
+        pageNumber: String(i),
+      })
+    }
   }
 
-  return pages
+  return params
 }

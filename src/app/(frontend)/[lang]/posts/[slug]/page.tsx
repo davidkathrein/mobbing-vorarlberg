@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 import { RelatedPosts } from '@/blocks/default/RelatedPosts/Component'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
-import configPromise from '@payload-config'
+import configPromise, { locales } from '@payload-config'
 import { getPayload } from 'payload'
 import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
@@ -15,23 +15,46 @@ import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 
-export async function generateStaticParams({ lang }: { lang: Config['locale'] }) {
+export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
-  const posts = await payload.find({
-    locale: lang,
-    collection: 'posts',
-    draft: false,
-    limit: 1000,
-    overrideAccess: false,
-    pagination: false,
-    select: {
-      slug: true,
-    },
-  })
 
-  const params = posts.docs.map(({ slug }) => {
-    return { slug }
-  })
+  const params: { lang: string; slug: string }[] = []
+
+  // Generate params for each locale
+  for (const lang of locales) {
+    const posts = await payload.find({
+      locale: lang as Config['locale'],
+      collection: 'posts',
+      draft: false,
+      limit: 1000,
+      overrideAccess: false,
+      pagination: false,
+      select: {
+        slug: true,
+      },
+    })
+
+    posts.docs.forEach((doc) => {
+      let slug: string
+
+      if (typeof doc.slug === 'string') {
+        slug = doc.slug
+      } else if (typeof doc.slug === 'object' && doc.slug !== null) {
+        slug =
+          (doc.slug as any)[lang] || (doc.slug as any).de || (Object.values(doc.slug)[0] as string)
+      } else {
+        console.log('couldnt extract slug from post', doc)
+        return // Skip invalid slugs
+      }
+
+      if (slug) {
+        params.push({
+          lang: lang as string,
+          slug,
+        })
+      }
+    })
+  }
 
   return params
 }
