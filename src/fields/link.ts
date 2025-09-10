@@ -18,6 +18,14 @@ export const appearanceOptions: Record<LinkAppearances, { label: string; value: 
 type LinkType = (options?: {
   appearances?: LinkAppearances[] | false
   disableLabel?: boolean
+  /**
+   * Control whether nested url/reference/label are localized. Defaults to true.
+   */
+  localized?: boolean
+  /**
+   * Control whether label is required. Defaults to true.
+   */
+  labelRequired?: boolean
   overrides?: Partial<GroupField>
 }) => Field
 
@@ -45,7 +53,13 @@ export const urlValidate: TextFieldValidation = (value) => {
   return true
 }
 
-export const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = {}) => {
+export const link: LinkType = ({
+  appearances,
+  disableLabel = false,
+  localized = true,
+  labelRequired = true,
+  overrides = {},
+} = {}) => {
   const linkResult: GroupField = {
     name: 'link',
     type: 'group',
@@ -95,7 +109,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
     {
       name: 'reference',
       type: 'relationship',
-      localized: true,
+      localized,
       admin: {
         condition: (_, siblingData) => siblingData?.type === 'reference',
       },
@@ -106,7 +120,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
     {
       name: 'url',
       type: 'text',
-      localized: true,
+      localized,
       admin: {
         description:
           "Email addresses are added in this format: 'mailto:example@google.com'. This format works on all links.",
@@ -135,13 +149,13 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
         {
           name: 'label',
           type: 'text',
-          localized: true,
+          localized,
           admin: {
             width: '50%',
             description: 'Text des Links.',
           },
           label: 'Label',
-          required: true,
+          required: labelRequired,
         },
       ],
     })

@@ -35,13 +35,6 @@ export const Component: FC<Props> = ({ member, index, locale }) => {
           <span className="text-muted-foreground inline-block translate-y-6 text-sm opacity-0 transition duration-300 group-hover:translate-y-0 group-hover:opacity-100">
             {member.jobDescription}
           </span>
-          <Link
-            href={member.link?.url ?? '#'}
-            className="group-hover:text-primary-600 dark:group-hover:text-primary-400 inline-block translate-y-8 text-sm tracking-wide opacity-0 transition-all duration-500 hover:underline group-hover:translate-y-0 group-hover:opacity-100"
-          >
-            {' '}
-            {member.link?.label ?? 'Kontakt'}
-          </Link>
         </div>
       </div>
     </div>

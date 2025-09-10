@@ -427,7 +427,7 @@ export interface Category {
  */
 export interface User {
   id: number;
-  name?: string | null;
+  name: string;
   /**
    * Das Profilbild des Benutzers.
    */
@@ -448,26 +448,6 @@ export interface User {
     };
     [k: string]: unknown;
   } | null;
-  link: {
-    type?: ('reference' | 'custom') | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: number | Page;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: number | Post;
-        } | null);
-    /**
-     * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all links.
-     */
-    url?: string | null;
-    /**
-     * Text des Links.
-     */
-    label: string;
-  };
   roles?: {
     /**
      * Kann alle Seiten bearbeiten. Voller Zugriff auf alle Benutzeroberflächen!
@@ -480,7 +460,7 @@ export interface User {
     /**
      * Je höher der Wert, desto weiter oben erscheint das Team-Mitglied.
      */
-    sortiing_index?: number | null;
+    sorting_index?: number | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -1553,20 +1533,12 @@ export interface UsersSelect<T extends boolean = true> {
   profilePicture?: T;
   jobDescription?: T;
   biography?: T;
-  link?:
-    | T
-    | {
-        type?: T;
-        reference?: T;
-        url?: T;
-        label?: T;
-      };
   roles?:
     | T
     | {
         admin?: T;
         team?: T;
-        sortiing_index?: T;
+        sorting_index?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1909,27 +1881,69 @@ export interface Header {
  */
 export interface Footer {
   id: number;
-  navItems?:
+  /**
+   * Hauptnavigation im Footer.
+   */
+  navLinkItems?:
     | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: number | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: number | Post;
-              } | null);
-          /**
-           * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all links.
-           */
-          url?: string | null;
-          /**
-           * Text des Links.
-           */
-          label: string;
+        navLinkItem: {
+          groupTitle: string;
+          links?:
+            | {
+                link: {
+                  type?: ('reference' | 'custom') | null;
+                  reference?:
+                    | ({
+                        relationTo: 'pages';
+                        value: number | Page;
+                      } | null)
+                    | ({
+                        relationTo: 'posts';
+                        value: number | Post;
+                      } | null);
+                  /**
+                   * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all links.
+                   */
+                  url?: string | null;
+                  /**
+                   * Text des Links.
+                   */
+                  label: string;
+                };
+                id?: string | null;
+              }[]
+            | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Icon Leiste unten rechts im Footer.
+   */
+  socialLinks?:
+    | {
+        socialLinkItem: {
+          type: 'facebook' | 'instagram' | 'linkedin' | 'twitter' | 'youtube';
+          link: {
+            type?: ('reference' | 'custom') | null;
+            reference?:
+              | ({
+                  relationTo: 'pages';
+                  value: number | Page;
+                } | null)
+              | ({
+                  relationTo: 'posts';
+                  value: number | Post;
+                } | null);
+            /**
+             * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all links.
+             */
+            url?: string | null;
+            /**
+             * Text des Links.
+             */
+            label: string;
+          };
         };
         id?: string | null;
       }[]
@@ -1978,16 +1992,44 @@ export interface HeaderSelect<T extends boolean = true> {
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
-  navItems?:
+  navLinkItems?:
     | T
     | {
-        link?:
+        navLinkItem?:
+          | T
+          | {
+              groupTitle?: T;
+              links?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    id?: T;
+                  };
+            };
+        id?: T;
+      };
+  socialLinks?:
+    | T
+    | {
+        socialLinkItem?:
           | T
           | {
               type?: T;
-              reference?: T;
-              url?: T;
-              label?: T;
+              link?:
+                | T
+                | {
+                    type?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
             };
         id?: T;
       };

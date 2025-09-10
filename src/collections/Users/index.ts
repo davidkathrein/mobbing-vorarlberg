@@ -28,6 +28,7 @@ export const Users: CollectionConfig = {
     {
       name: 'name',
       type: 'text',
+      required: true,
     },
     {
       name: 'profilePicture',
@@ -54,9 +55,14 @@ export const Users: CollectionConfig = {
       editor: lexicalEditor(),
       localized: true,
     },
-    link({
-      appearances: false,
-    }),
+    // link({
+    //   appearances: false,
+    //   localized: false,
+    //   labelRequired: false,
+    //   overrides: {
+    //     required: false,
+    //   },
+    // }),
     {
       name: 'roles',
       type: 'group',
@@ -79,7 +85,7 @@ export const Users: CollectionConfig = {
           defaultValue: true,
         },
         {
-          name: 'sortiing_index',
+          name: 'sorting_index',
           type: 'number',
           admin: {
             condition: (_data, siblingData) => siblingData?.team === true,

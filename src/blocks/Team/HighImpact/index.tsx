@@ -30,7 +30,7 @@ export default function DisclosureCard({ member, locale = 'de' }: Props) {
   const subheading = member.jobDescription
 
   const content = member.biography
-  const contentLink = member.link
+  // const contentLink = member.link
   const defaultLinkLabel = 'Kontakt'
 
   const imageVariants = {
@@ -96,17 +96,6 @@ export default function DisclosureCard({ member, locale = 'de' }: Props) {
             ) : (
               <div>Keine Beschreibung hinzugefügt.</div>
             )}
-            <div className="pl-1 mt-4">
-              <CMSLink
-                className="text-foreground"
-                url={contentLink?.url}
-                appearance="outline"
-                size="sm"
-                locale={locale}
-              >
-                {contentLink?.label ?? defaultLinkLabel}
-              </CMSLink>
-            </div>
           </div>
         </DisclosureContent>
       </Disclosure>
