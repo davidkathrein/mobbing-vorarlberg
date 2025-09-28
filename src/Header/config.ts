@@ -1,6 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
 import { link } from '@/fields/link'
+import { linkGroup } from '@/fields/linkGroup'
 import { revalidateHeader } from './hooks/revalidateHeader'
 
 export const Header: GlobalConfig = {
@@ -13,10 +14,45 @@ export const Header: GlobalConfig = {
       name: 'navItems',
       type: 'array',
       localized: true,
+      required: true,
       fields: [
         link({
           appearances: false,
+          overrides: {
+            label: {
+              en: 'Custom nested Links in Dropdown',
+              de: 'Custom verschachtelte Links im Dropdown',
+            },
+          },
         }),
+        {
+          name: 'nestedLinks',
+          label: {
+            en: 'Nested Links in Dropdown',
+            de: 'Verschachtelte Links im Dropdown',
+          },
+          type: 'group',
+          fields: [
+            linkGroup({
+              appearances: false,
+              overrides: {
+                admin: {
+                  condition: (_, siblingData) => siblingData?.fillNestedLinksContent === 'custom',
+                },
+              },
+            }),
+            {
+              name: 'fillNestedLinksContent',
+              type: 'radio',
+              options: ['custom', 'categories'],
+              defaultValue: 'custom',
+              label: {
+                en: 'Fill nested Links (dropdown) with',
+                de: 'Fülle verschachtelte Links (dropdown) mit',
+              },
+            },
+          ],
+        },
       ],
       maxRows: 6,
       admin: {
