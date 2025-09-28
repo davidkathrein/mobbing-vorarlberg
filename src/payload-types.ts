@@ -72,6 +72,7 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
+    routes: Route;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -88,6 +89,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    routes: RoutesSelect<false> | RoutesSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -166,11 +168,23 @@ export interface Page {
               value: number | Page;
             } | null)
           | ({
+              relationTo: 'routes';
+              value: number | Route;
+            } | null)
+          | ({
               relationTo: 'posts';
               value: number | Post;
+            } | null)
+          | ({
+              relationTo: 'categories';
+              value: number | Category;
+            } | null)
+          | ({
+              relationTo: 'media';
+              value: number | Media;
             } | null);
         /**
-         * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all links.
+         * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all email links.
          */
         url?: string | null;
         /**
@@ -208,11 +222,23 @@ export interface Page {
                   value: number | Page;
                 } | null)
               | ({
+                  relationTo: 'routes';
+                  value: number | Route;
+                } | null)
+              | ({
                   relationTo: 'posts';
                   value: number | Post;
+                } | null)
+              | ({
+                  relationTo: 'categories';
+                  value: number | Category;
+                } | null)
+              | ({
+                  relationTo: 'media';
+                  value: number | Media;
                 } | null);
             /**
-             * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all links.
+             * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all email links.
              */
             url?: string | null;
             /**
@@ -253,6 +279,20 @@ export interface Page {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * Here are programmatically generated pages defined (only used to show them in the internal link reference field). You do never need to change anything here.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "routes".
+ */
+export interface Route {
+  id: number;
+  title: string;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -448,6 +488,10 @@ export interface User {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Je höher der Wert, desto weiter oben erscheint das Team-Mitglied.
+   */
+  sorting_index?: number | null;
   roles?: {
     /**
      * Kann alle Seiten bearbeiten. Voller Zugriff auf alle Benutzeroberflächen!
@@ -457,10 +501,6 @@ export interface User {
      * Wird auf Team-Seite angezeigt. Kann keine Seiten bearbeiten.
      */
     team?: boolean | null;
-    /**
-     * Je höher der Wert, desto weiter oben erscheint das Team-Mitglied.
-     */
-    sorting_index?: number | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -510,11 +550,23 @@ export interface CallToActionBlock {
                 value: number | Page;
               } | null)
             | ({
+                relationTo: 'routes';
+                value: number | Route;
+              } | null)
+            | ({
                 relationTo: 'posts';
                 value: number | Post;
+              } | null)
+            | ({
+                relationTo: 'categories';
+                value: number | Category;
+              } | null)
+            | ({
+                relationTo: 'media';
+                value: number | Media;
               } | null);
           /**
-           * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all links.
+           * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all email links.
            */
           url?: string | null;
           /**
@@ -566,11 +618,23 @@ export interface ContentBlock {
                 value: number | Page;
               } | null)
             | ({
+                relationTo: 'routes';
+                value: number | Route;
+              } | null)
+            | ({
                 relationTo: 'posts';
                 value: number | Post;
+              } | null)
+            | ({
+                relationTo: 'categories';
+                value: number | Category;
+              } | null)
+            | ({
+                relationTo: 'media';
+                value: number | Media;
               } | null);
           /**
-           * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all links.
+           * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all email links.
            */
           url?: string | null;
           /**
@@ -1122,6 +1186,10 @@ export interface PayloadLockedDocument {
         value: number | User;
       } | null)
     | ({
+        relationTo: 'routes';
+        value: number | Route;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: number | Redirect;
       } | null)
@@ -1533,12 +1601,12 @@ export interface UsersSelect<T extends boolean = true> {
   profilePicture?: T;
   jobDescription?: T;
   biography?: T;
+  sorting_index?: T;
   roles?:
     | T
     | {
         admin?: T;
         team?: T;
-        sorting_index?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1556,6 +1624,17 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "routes_select".
+ */
+export interface RoutesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1818,31 +1897,81 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Header {
   id: number;
-  navItems?:
-    | {
-        link: {
-          type?: ('reference' | 'custom') | null;
-          reference?:
-            | ({
-                relationTo: 'pages';
-                value: number | Page;
-              } | null)
-            | ({
-                relationTo: 'posts';
-                value: number | Post;
-              } | null);
-          /**
-           * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all links.
-           */
-          url?: string | null;
-          /**
-           * Text des Links.
-           */
-          label: string;
-        };
-        id?: string | null;
-      }[]
-    | null;
+  navItems: {
+    link: {
+      type?: ('reference' | 'custom') | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: number | Page;
+          } | null)
+        | ({
+            relationTo: 'routes';
+            value: number | Route;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: number | Post;
+          } | null)
+        | ({
+            relationTo: 'categories';
+            value: number | Category;
+          } | null)
+        | ({
+            relationTo: 'media';
+            value: number | Media;
+          } | null);
+      /**
+       * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all email links.
+       */
+      url?: string | null;
+      /**
+       * Text des Links.
+       */
+      label: string;
+    };
+    nestedLinks?: {
+      fillNestedLinksContent?: ('none' | 'custom' | 'categories') | null;
+      links?:
+        | {
+            link: {
+              type?: ('reference' | 'custom') | null;
+              reference?:
+                | ({
+                    relationTo: 'pages';
+                    value: number | Page;
+                  } | null)
+                | ({
+                    relationTo: 'routes';
+                    value: number | Route;
+                  } | null)
+                | ({
+                    relationTo: 'posts';
+                    value: number | Post;
+                  } | null)
+                | ({
+                    relationTo: 'categories';
+                    value: number | Category;
+                  } | null)
+                | ({
+                    relationTo: 'media';
+                    value: number | Media;
+                  } | null);
+              /**
+               * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all email links.
+               */
+              url?: string | null;
+              /**
+               * Text des Links.
+               */
+              label: string;
+            };
+            id?: string | null;
+          }[]
+        | null;
+    };
+    id?: string | null;
+  }[];
   navButtons?:
     | {
         link: {
@@ -1853,11 +1982,23 @@ export interface Header {
                 value: number | Page;
               } | null)
             | ({
+                relationTo: 'routes';
+                value: number | Route;
+              } | null)
+            | ({
                 relationTo: 'posts';
                 value: number | Post;
+              } | null)
+            | ({
+                relationTo: 'categories';
+                value: number | Category;
+              } | null)
+            | ({
+                relationTo: 'media';
+                value: number | Media;
               } | null);
           /**
-           * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all links.
+           * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all email links.
            */
           url?: string | null;
           /**
@@ -1888,6 +2029,7 @@ export interface Footer {
     | {
         navLinkItem: {
           groupTitle: string;
+          fillNestedLinksContent?: ('custom' | 'categories') | null;
           links?:
             | {
                 link: {
@@ -1898,11 +2040,23 @@ export interface Footer {
                         value: number | Page;
                       } | null)
                     | ({
+                        relationTo: 'routes';
+                        value: number | Route;
+                      } | null)
+                    | ({
                         relationTo: 'posts';
                         value: number | Post;
+                      } | null)
+                    | ({
+                        relationTo: 'categories';
+                        value: number | Category;
+                      } | null)
+                    | ({
+                        relationTo: 'media';
+                        value: number | Media;
                       } | null);
                   /**
-                   * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all links.
+                   * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all email links.
                    */
                   url?: string | null;
                   /**
@@ -1932,11 +2086,23 @@ export interface Footer {
                   value: number | Page;
                 } | null)
               | ({
+                  relationTo: 'routes';
+                  value: number | Route;
+                } | null)
+              | ({
                   relationTo: 'posts';
                   value: number | Post;
+                } | null)
+              | ({
+                  relationTo: 'categories';
+                  value: number | Category;
+                } | null)
+              | ({
+                  relationTo: 'media';
+                  value: number | Media;
                 } | null);
             /**
-             * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all links.
+             * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all email links.
              */
             url?: string | null;
             /**
@@ -1966,6 +2132,24 @@ export interface HeaderSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+            };
+        nestedLinks?:
+          | T
+          | {
+              fillNestedLinksContent?: T;
+              links?:
+                | T
+                | {
+                    link?:
+                      | T
+                      | {
+                          type?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                        };
+                    id?: T;
+                  };
             };
         id?: T;
       };
@@ -1999,6 +2183,7 @@ export interface FooterSelect<T extends boolean = true> {
           | T
           | {
               groupTitle?: T;
+              fillNestedLinksContent?: T;
               links?:
                 | T
                 | {

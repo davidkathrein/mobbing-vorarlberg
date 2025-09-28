@@ -27,10 +27,15 @@ const renderTeamList = async (props: Props) => {
     .find({
       collection: 'users',
       depth: 1,
+      sort: 'sorting_index',
     })
     .then((res) => {
       return res.docs
     })
+
+  members.map((member) => {
+    console.log(member.sorting_index)
+  })
 
   return (
     <section className="container">

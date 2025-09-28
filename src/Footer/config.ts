@@ -32,10 +32,26 @@ export const Footer: GlobalConfig = {
               required: true,
               localized: true,
             },
+            {
+              name: 'fillNestedLinksContent',
+              dbName: 'fillNestedLinksContent',
+              type: 'radio',
+              options: ['custom', 'categories'],
+              label: {
+                en: 'Fill nested Links (dropdown) with',
+                de: 'Fülle verschachtelte Links (dropdown) mit',
+              },
+            },
             linkGroup({
               appearances: false,
               overrides: {
-                maxRows: 4,
+                dbName: 'links',
+                admin: {
+                  condition: (_, siblingData) =>
+                    siblingData?.fillNestedLinksContent === 'custom' ||
+                    !siblingData?.fillNestedLinksContent,
+                },
+                maxRows: 6,
               },
             }),
           ],

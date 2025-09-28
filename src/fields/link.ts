@@ -114,7 +114,7 @@ export const link: LinkType = ({
         condition: (_, siblingData) => siblingData?.type === 'reference',
       },
       label: 'Document to link to',
-      relationTo: ['pages', 'posts'],
+      relationTo: ['pages', 'routes', 'posts', 'categories', 'media'],
       required: true,
     },
     {
@@ -123,7 +123,7 @@ export const link: LinkType = ({
       localized,
       admin: {
         description:
-          "Email addresses are added in this format: 'mailto:example@google.com'. This format works on all links.",
+          "Email addresses are added in this format: 'mailto:example@google.com'. This format works on all email links.",
         condition: (_, siblingData) => siblingData?.type === 'custom',
       },
       validate: urlValidate,

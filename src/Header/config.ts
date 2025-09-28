@@ -33,6 +33,20 @@ export const Header: GlobalConfig = {
           },
           type: 'group',
           fields: [
+            {
+              name: 'fillNestedLinksContent',
+              type: 'radio',
+              options: [
+                { label: 'None', value: 'none' },
+                { label: 'Custom', value: 'custom' },
+                { label: 'Categories', value: 'categories' },
+              ],
+              defaultValue: 'none',
+              label: {
+                en: 'Fill nested Links (dropdown) with',
+                de: 'Fülle verschachtelte Links (dropdown) mit',
+              },
+            },
             linkGroup({
               appearances: false,
               overrides: {
@@ -41,16 +55,6 @@ export const Header: GlobalConfig = {
                 },
               },
             }),
-            {
-              name: 'fillNestedLinksContent',
-              type: 'radio',
-              options: ['custom', 'categories'],
-              defaultValue: 'custom',
-              label: {
-                en: 'Fill nested Links (dropdown) with',
-                de: 'Fülle verschachtelte Links (dropdown) mit',
-              },
-            },
           ],
         },
       ],

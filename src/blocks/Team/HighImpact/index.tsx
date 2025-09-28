@@ -52,7 +52,7 @@ export default function DisclosureCard({ member, locale = 'de' }: Props) {
 
   return (
     <div
-      className="relative overflow-hidden rounded-xl aspect-square"
+      className="relative rounded-xl aspect-square overflow-hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       data-theme={theme}
@@ -72,7 +72,7 @@ export default function DisclosureCard({ member, locale = 'de' }: Props) {
       <Disclosure
         onOpenChange={() => setIsLockedOpen((prev) => !prev)}
         open={isOpen}
-        className="absolute bottom-0 left-0 right-0 bg-card px-4 pt-2"
+        className="absolute bottom-0 left-0 right-0 bg-card px-4 pt-2 max-h-full overflow-y-auto"
         variants={contentVariants}
         transition={transition}
       >
@@ -90,7 +90,7 @@ export default function DisclosureCard({ member, locale = 'de' }: Props) {
           </button>
         </DisclosureTrigger>
         <DisclosureContent>
-          <div className="flex flex-col pb-4 text-sm">
+          <div className="flex flex-col pb-4 text-sm max-h-full">
             {content ? (
               <RichText className="text-sm p-0" data={content} lang={locale} />
             ) : (

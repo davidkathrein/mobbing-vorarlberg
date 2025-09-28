@@ -151,7 +151,7 @@ export function DisclosureContent({
   }
 
   return (
-    <div className={cn('overflow-hidden', className)}>
+    <div className={cn(className)}>
       <AnimatePresence initial={false}>
         {open && (
           <motion.div

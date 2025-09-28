@@ -63,7 +63,12 @@ export const Card: React.FC<{
                     const isColorLight = color ? isColorLightFn(color) : false
 
                     return (
-                      <CMSLink locale={locale} url={'/#'} key={index}>
+                      <CMSLink
+                        type="reference"
+                        locale={locale}
+                        reference={{ relationTo: 'categories', value: category }}
+                        key={index}
+                      >
                         <Badge
                           variant="default"
                           style={{

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
-import type { Header } from '@/payload-types'
+import type { Category, Header } from '@/payload-types'
 import type { Config } from 'src/payload-types'
 
 import { Logo } from '@/components/Logo/Logo'
@@ -15,10 +15,11 @@ import { cn } from '@/utilities/ui'
 
 interface HeaderClientProps {
   data: Header
+  categories: Category[]
   locale: Config['locale']
 }
 
-export const HeaderClient: React.FC<HeaderClientProps> = ({ data, locale }) => {
+export const HeaderClient: React.FC<HeaderClientProps> = ({ data, categories, locale }) => {
   /* Storing the value in a useState to avoid hydration errors */
   const [theme, setTheme] = useState<string | null>(null)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
@@ -53,13 +54,13 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, locale }) => {
         <nav
           data-state={menuState && 'active'}
           className={cn(
-            'fixed container z-20 w-full border-b border-dashed sm:relative bg-background/80 backdrop-blur',
+            'fixed z-20 w-full border-b border-dashed sm:relative bg-background/80 backdrop-blur',
             {
               'sm:bg-transparent': !scrolled && !menuState,
             },
           )}
         >
-          <div>
+          <div className="container">
             <div className="flex flex-wrap items-center justify-between gap-6 py-3 sm:gap-0 sm:py-4">
               <div className="flex w-full justify-between sm:w-auto">
                 <Link href="/" aria-label="home" className="flex items-center space-x-2">
@@ -87,7 +88,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, locale }) => {
                   />
                 </button>
               </div>
-              <HeaderNav data={data} isOpen={menuState} locale={locale} />
+              <HeaderNav data={data} categories={categories} isOpen={menuState} locale={locale} />
             </div>
           </div>
         </nav>

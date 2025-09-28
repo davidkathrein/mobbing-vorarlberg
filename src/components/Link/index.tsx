@@ -3,7 +3,7 @@ import { cn } from '@/utilities/ui'
 import Link from 'next/link'
 import React from 'react'
 
-import type { Config, Page, Post } from '@/payload-types'
+import type { Category, Config, Media, Page, Post } from '@/payload-types'
 
 type CMSLinkType = {
   appearance?: 'inline' | ButtonProps['variant']
@@ -12,8 +12,8 @@ type CMSLinkType = {
   label?: string | null
   newTab?: boolean | null
   reference?: {
-    relationTo: 'pages' | 'posts'
-    value: Page | Post | string | number
+    relationTo: 'pages' | 'posts' | 'categories' | 'media' | 'routes'
+    value: Page | Post | Category | Media | string | number
   } | null
   size?: ButtonProps['size'] | null
   type?: 'custom' | 'reference' | null
@@ -38,7 +38,9 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
 
   function isInternalUrl(url: string) {
     if (newTab) return false
+    url = url.trim().toLowerCase()
     if (url.startsWith('mailto:')) return true
+    if (url.includes('api/')) return true
     if (url.startsWith('/')) return true
     if (!SITE_URL) throw new Error('NEXT_PUBLIC_SERVER_URL is not defined in .env')
 
@@ -50,13 +52,29 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     }
   }
 
-  let href =
-    type === 'reference' && typeof reference?.value === 'object' && reference.value.slug
-      ? `${reference?.relationTo !== 'pages' ? `/${reference?.relationTo}` : ''}/${locale}/${
-          reference.value.slug
-        }`
-      : url
-  if (!href) {
+  let href = url
+
+  if (type === 'reference' && reference?.value) {
+    if (reference.relationTo === 'media') {
+      // Handle media references
+      if (typeof reference.value === 'object' && 'url' in reference.value) {
+        href = 'api/media/' + reference.value.filename
+      }
+    } else if (
+      typeof reference.value === 'object' &&
+      'slug' in reference.value &&
+      reference.value.slug
+    ) {
+      // Handle slugs (pages, categories, posts, etc.)
+      const prefix =
+        reference.relationTo !== 'pages' && reference.relationTo !== 'routes'
+          ? `/${reference.relationTo}`
+          : ''
+      href = `/${locale}${prefix}/${reference.value.slug}`
+    }
+  }
+
+  if (!href || href.length === 0) {
     console.error('CMSLink: no URL provided.')
     return null
   }

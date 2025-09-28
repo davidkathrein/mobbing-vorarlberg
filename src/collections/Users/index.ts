@@ -64,6 +64,16 @@ export const Users: CollectionConfig = {
     //   },
     // }),
     {
+      name: 'sorting_index',
+      type: 'number',
+      admin: {
+        condition: (_data, siblingData) => siblingData?.team === true,
+        step: 0.01,
+        description: 'Je höher der Wert, desto weiter oben erscheint das Team-Mitglied.',
+      },
+      defaultValue: 0,
+    },
+    {
       name: 'roles',
       type: 'group',
       fields: [
@@ -83,16 +93,6 @@ export const Users: CollectionConfig = {
             description: 'Wird auf Team-Seite angezeigt. Kann keine Seiten bearbeiten.',
           },
           defaultValue: true,
-        },
-        {
-          name: 'sorting_index',
-          type: 'number',
-          admin: {
-            condition: (_data, siblingData) => siblingData?.team === true,
-            step: 0.01,
-            description: 'Je höher der Wert, desto weiter oben erscheint das Team-Mitglied.',
-          },
-          defaultValue: 0,
         },
       ],
     },
