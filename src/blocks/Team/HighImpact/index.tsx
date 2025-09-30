@@ -94,7 +94,7 @@ export default function DisclosureCard({ member, locale = 'de' }: Props) {
             {content ? (
               <RichText className="text-sm p-0" data={content} lang={locale} />
             ) : (
-              <div>Keine Beschreibung hinzugefügt.</div>
+              <div className="text-muted-foreground text-sm">Keine Beschreibung hinzugefügt.</div>
             )}
           </div>
         </DisclosureContent>

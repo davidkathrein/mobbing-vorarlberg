@@ -12,8 +12,8 @@ import { fileURLToPath } from 'url'
 import { anyone } from '../access/anyone'
 import { authenticated } from '../access/authenticated'
 
-const filename = fileURLToPath(import.meta.url)
-const dirname = path.dirname(filename)
+// const filename = fileURLToPath(import.meta.url)
+// const dirname = path.dirname(filename)
 
 export const sanitizeFileName: CollectionBeforeOperationHook = async ({ req }) => {
   const file = req.file
@@ -36,7 +36,7 @@ export const Media: CollectionConfig = {
       type: 'text',
       admin: {
         description:
-          'Wird angezeigt, wenn Bild nicht geladen werden kann. Wichtig für Suchmaschine und Barrierefreihet. Soll Bild für Blinde beschreiben.',
+          'Wird angezeigt, wenn Bild nicht geladen werden kann. Wichtig für Suchmaschine und Barrierefreiheit.',
       },
       localized: true,
       //required: true,
@@ -82,6 +82,11 @@ export const Media: CollectionConfig = {
       {
         name: 'xlarge',
         width: 1920,
+      },
+      {
+        name: 'wide',
+        width: 3840,
+        height: 1500,
       },
       {
         name: 'og',

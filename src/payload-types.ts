@@ -348,7 +348,7 @@ export interface Post {
 export interface Media {
   id: number;
   /**
-   * Wird angezeigt, wenn Bild nicht geladen werden kann. Wichtig für Suchmaschine und Barrierefreihet. Soll Bild für Blinde beschreiben.
+   * Wird angezeigt, wenn Bild nicht geladen werden kann. Wichtig für Suchmaschine und Barrierefreiheit.
    */
   alt?: string | null;
   caption?: {
@@ -419,6 +419,14 @@ export interface Media {
       filename?: string | null;
     };
     xlarge?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    wide?: {
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -1550,6 +1558,16 @@ export interface MediaSelect<T extends boolean = true> {
               filename?: T;
             };
         xlarge?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        wide?:
           | T
           | {
               url?: T;

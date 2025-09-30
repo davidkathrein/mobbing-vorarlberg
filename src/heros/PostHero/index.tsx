@@ -43,7 +43,12 @@ export const PostHero: React.FC<{
                     const isLast = index === categories.length - 1
 
                     return (
-                      <CMSLink locale={locale} url={'/#'} key={index}>
+                      <CMSLink
+                        locale={locale}
+                        type={'reference'}
+                        reference={{ relationTo: 'categories', value: category }}
+                        key={category.id}
+                      >
                         <Badge
                           variant="default"
                           style={{
@@ -91,6 +96,7 @@ export const PostHero: React.FC<{
             imgClassName="-z-10 object-cover"
             resource={heroImage}
             locale={locale}
+            isWideImage={true}
           />
         )}
         <div className="absolute pointer-events-none left-0 bottom-0 w-full h-1/2 bg-gradient-to-t from-black to-transparent" />
