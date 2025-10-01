@@ -178,10 +178,6 @@ export interface Page {
           | ({
               relationTo: 'categories';
               value: number | Category;
-            } | null)
-          | ({
-              relationTo: 'media';
-              value: number | Media;
             } | null);
         /**
          * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all email links.
@@ -232,10 +228,6 @@ export interface Page {
               | ({
                   relationTo: 'categories';
                   value: number | Category;
-                } | null)
-              | ({
-                  relationTo: 'media';
-                  value: number | Media;
                 } | null);
             /**
              * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all email links.
@@ -568,10 +560,6 @@ export interface CallToActionBlock {
             | ({
                 relationTo: 'categories';
                 value: number | Category;
-              } | null)
-            | ({
-                relationTo: 'media';
-                value: number | Media;
               } | null);
           /**
            * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all email links.
@@ -636,10 +624,6 @@ export interface ContentBlock {
             | ({
                 relationTo: 'categories';
                 value: number | Category;
-              } | null)
-            | ({
-                relationTo: 'media';
-                value: number | Media;
               } | null);
           /**
            * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all email links.
@@ -1934,10 +1918,6 @@ export interface Header {
         | ({
             relationTo: 'categories';
             value: number | Category;
-          } | null)
-        | ({
-            relationTo: 'media';
-            value: number | Media;
           } | null);
       /**
        * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all email links.
@@ -1970,10 +1950,6 @@ export interface Header {
                 | ({
                     relationTo: 'categories';
                     value: number | Category;
-                  } | null)
-                | ({
-                    relationTo: 'media';
-                    value: number | Media;
                   } | null);
               /**
                * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all email links.
@@ -2010,10 +1986,6 @@ export interface Header {
             | ({
                 relationTo: 'categories';
                 value: number | Category;
-              } | null)
-            | ({
-                relationTo: 'media';
-                value: number | Media;
               } | null);
           /**
            * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all email links.
@@ -2068,10 +2040,6 @@ export interface Footer {
                     | ({
                         relationTo: 'categories';
                         value: number | Category;
-                      } | null)
-                    | ({
-                        relationTo: 'media';
-                        value: number | Media;
                       } | null);
                   /**
                    * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all email links.
@@ -2114,10 +2082,6 @@ export interface Footer {
               | ({
                   relationTo: 'categories';
                   value: number | Category;
-                } | null)
-              | ({
-                  relationTo: 'media';
-                  value: number | Media;
                 } | null);
             /**
              * Email addresses are added in this format: 'mailto:example@google.com'. This format works on all email links.

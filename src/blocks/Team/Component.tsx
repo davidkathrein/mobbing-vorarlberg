@@ -33,10 +33,6 @@ const renderTeamList = async (props: Props) => {
       return res.docs
     })
 
-  members.map((member) => {
-    console.log(member.sorting_index)
-  })
-
   return (
     <section className="container">
       <div className={cn(props.caption && 'border-t')}>
