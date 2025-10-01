@@ -1,5 +1,3 @@
-import { Analytics } from '@vercel/analytics/next'
-
 import type { Metadata } from 'next'
 
 import { cn } from '@/utilities/ui'
@@ -77,13 +75,11 @@ export default async function RootLayout({
         />
 
         <Providers>
-          <Analytics debug={true} />
           <AdminBar
             adminBarProps={{
               preview: isEnabled,
             }}
           />
-
           <Header locale={lang} />
           {children}
           <Footer locale={lang} />
