@@ -38,7 +38,6 @@ export const ImageMedia: React.FC<Props> = (props) => {
   let height: number | undefined
   let alt = altFromProps
   let src: StaticImageData | string = srcFromProps || ''
-  let placeholderSrc: StaticImageData | string = srcFromProps || ''
 
   if (!src && resource && typeof resource === 'object') {
     const { alt: altFromResource, height: fullHeight, url, width: fullWidth, sizes } = resource
