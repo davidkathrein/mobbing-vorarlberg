@@ -1,3 +1,18 @@
+// Special routes to exclude from language prefixing
+const SPECIAL_ROUTES = [
+  'admin',
+  'api',
+  '_next',
+  'next',
+  'favicon.ico',
+  'robots.txt',
+  'sitemap.xml',
+  'static',
+  'media',
+]
+
+const langSegment = `:lang((?!${SPECIAL_ROUTES.join('|')}).*)`
+
 const redirects = async () => {
   // redirect all en to de as we dont have localization utilized enough yet
   const disableEnRedirects = {
@@ -21,30 +36,18 @@ const redirects = async () => {
 
   const redirectCategoriesToFilter = {
     source: '/categories/:slug', // dynamic segment
-    destination: '/posts?categories=:slug', // query param passed along
+    destination: '/posts?categories=[":slug"]',
     permanent: true, // 308 redirect (permanent)
   }
 
   const redirectCategoriesToFilterWithLang = {
-    source: '/:lang/categories/:slug', // language-specific categories
-    destination: '/:lang/posts?categories=:slug', // preserve language prefix
+    source: `/${langSegment}/categories/:slug`,
+    destination: '/:lang/posts?categories=[":slug"]',
     permanent: true, // 308 redirect (permanent)
   }
 
-  const redirectAngeboteToPosts = {
-    source: '/angebote',
-    destination: '/posts',
-    permanent: true,
-  }
-
-  const redirectRoutesToRoot = {
-    source: '/routes',
-    destination: '/',
-    permanent: true,
-  }
-
   const redirectRoutesToRootWithLang = {
-    source: '/:lang/routes',
+    source: `/${langSegment}/routes`,
     destination: '/:lang',
     permanent: true,
   }
@@ -54,7 +57,6 @@ const redirects = async () => {
     internetExplorerRedirect,
     redirectCategoriesToFilter,
     redirectCategoriesToFilterWithLang,
-    redirectAngeboteToPosts,
     redirectRoutesToRootWithLang,
   ]
 

@@ -14,6 +14,16 @@ export const Routes: CollectionConfig = {
     read: anyone,
     update: authenticated,
   },
+  labels: {
+    plural: {
+      de: 'Statische Seiten',
+      en: 'Static Pages',
+    },
+    singular: {
+      de: 'Statische Seite',
+      en: 'Static Page',
+    },
+  },
   admin: {
     useAsTitle: 'title',
     description: {
